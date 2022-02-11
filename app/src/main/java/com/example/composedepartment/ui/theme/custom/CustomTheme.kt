@@ -1,6 +1,5 @@
 package com.example.composedepartment.ui.theme.custom
 
-import androidx.compose.material.Colors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
@@ -11,7 +10,7 @@ class ColorsCustom(
     val pink: Color
 )
 
-object LocalMaterialThemeCustom {
+private object LocalMaterialThemeCustom {
     var colors: ColorsCustom? = null
 }
 

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.ComposeDepartment" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.ComposeDepartment" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:statusBarColor">@color/black_background</item>
         <item name="android:navigationBarColor">@color/black_background</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 </resources>
