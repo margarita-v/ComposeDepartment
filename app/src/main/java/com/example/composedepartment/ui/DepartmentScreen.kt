@@ -3,25 +3,34 @@ package com.example.composedepartment.ui
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.composedepartment.R
 import com.example.composedepartment.ui.theme.ComposeDepartmentTheme
+import com.google.accompanist.pager.*
+import kotlinx.coroutines.launch
+import java.util.*
 
 @Composable
 fun DepartmentScreen(
     modifier: Modifier = Modifier,
-    darkTheme: Boolean = isSystemInDarkTheme(),
     onSearchClick: () -> Unit = {}
 ) {
     Surface(
@@ -29,38 +38,102 @@ fun DepartmentScreen(
         color = MaterialTheme.colors.background
     ) {
         Column(modifier = Modifier.systemBarsPadding()) {
-            TopAppBar(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                backgroundColor = MaterialTheme.colors.background,
-                elevation = 0.dp,
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Image(
-                        modifier = Modifier.size(width = 58.dp, height = 40.dp),
-                        painter = painterResource(id = R.drawable.ic_surf),
-                        colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
-                        contentDescription = null,
-                    )
-                    IconButton(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(12.dp))
-                            .size(40.dp)
-                            .background(MaterialTheme.colors.surface),
-                        onClick = { onSearchClick() }
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_search),
-                            tint = MaterialTheme.colors.onSurface,
-                            contentDescription = "Search"
-                        )
-                    }
-                }
-            }
-            Text(text = "Hello Main!")
+            Spacer(modifier = Modifier.size(8.dp))
+            DepartmentAppBar(onSearchClick = onSearchClick)
+            Spacer(modifier = Modifier.size(16.dp))
+            DepartmentContent()
         }
+    }
+}
+
+@Composable
+private fun DepartmentAppBar(onSearchClick: () -> Unit = {}) {
+    TopAppBar(
+        modifier = Modifier.padding(horizontal = 16.dp),
+        backgroundColor = MaterialTheme.colors.background,
+        elevation = 0.dp,
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            //todo open surf site on click
+            Image(
+                modifier = Modifier.size(width = 58.dp, height = 40.dp),
+                painter = painterResource(id = R.drawable.ic_surf),
+                colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
+                contentDescription = null,
+            )
+            IconButton(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(12.dp))
+                    .size(40.dp)
+                    .background(MaterialTheme.colors.surface),
+                onClick = { onSearchClick() }
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_search),
+                    tint = MaterialTheme.colors.onSurface,
+                    contentDescription = "Search"
+                )
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalPagerApi::class, androidx.compose.ui.unit.ExperimentalUnitApi::class)
+@Composable
+private fun DepartmentContent(modifier: Modifier = Modifier) {
+    val pagerState = rememberPagerState()
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val pages = context.resources.getStringArray(R.array.department_tabs)
+
+    ScrollableTabRow(
+        selectedTabIndex = pagerState.currentPage,
+        backgroundColor = MaterialTheme.colors.background,
+        edgePadding = 20.dp,
+        divider = {},
+        indicator = { tabPositions ->
+            TabRowDefaults.Indicator(
+                modifier = Modifier
+                    .pagerTabIndicatorOffset(pagerState, tabPositions)
+                    .padding(horizontal = 16.dp),
+                height = 3.dp,
+                color = MaterialTheme.colors.primary
+            )
+        }
+    ) {
+        pages.forEachIndexed { index, title ->
+            Tab(
+                text = {
+                    Text(
+                        text = title.uppercase(Locale.getDefault()),
+                        style = TextStyle(
+                            color = MaterialTheme.colors.primary,
+                            fontFamily = FontFamily.Default,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = TextUnit(0.1f, TextUnitType.Em),
+                            fontSize = 14.sp
+                        )
+                    )
+                },
+                selected = pagerState.currentPage == index,
+                onClick = {
+                    scope.launch {
+                        pagerState.animateScrollToPage(index)
+                    }
+                },
+            )
+        }
+    }
+
+    HorizontalPager(
+        count = pages.size,
+        modifier = modifier.fillMaxSize(),
+        state = pagerState,
+    ) { page ->
+        Text(text = "Hello $page!")
     }
 }
 

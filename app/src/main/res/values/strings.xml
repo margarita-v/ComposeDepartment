@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ComposeDepartment</string>
+    <string-array name="department_tabs">
+        <item>Сотрудники</item>
+        <item>Проекты</item>
+        <item>О приложении</item>
+    </string-array>
 </resources>
