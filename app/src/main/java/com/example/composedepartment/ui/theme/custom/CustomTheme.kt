@@ -7,7 +7,8 @@ import androidx.compose.ui.graphics.Color
 class ColorsCustom(
     val orange: Color,
     val green: Color,
-    val pink: Color
+    val pink: Color,
+    val splash: Color
 )
 
 private object LocalMaterialThemeCustom {

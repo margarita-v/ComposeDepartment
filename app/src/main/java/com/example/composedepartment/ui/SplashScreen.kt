@@ -2,8 +2,10 @@ package com.example.composedepartment.ui
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -14,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.composedepartment.R
 import com.example.composedepartment.ui.theme.ComposeDepartmentTheme
+import com.example.composedepartment.ui.theme.custom.MaterialThemeCustom
 import kotlinx.coroutines.delay
 
 @Composable
@@ -23,7 +26,12 @@ fun SplashScreen(
     delay: Long = 1000L,
     onFinished: () -> Unit = {}
 ) {
-    ConstraintLayout(modifier.fillMaxSize()) {
+    ConstraintLayout(
+        modifier
+            .fillMaxSize()
+            .background(MaterialThemeCustom.colors.splash)
+            .systemBarsPadding()
+    ) {
         val (surf, image, logo) = createRefs()
         Image(
             modifier = Modifier.constrainAs(surf) {

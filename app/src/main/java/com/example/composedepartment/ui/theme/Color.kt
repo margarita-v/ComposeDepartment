@@ -14,5 +14,8 @@ val GreenLighter = Color(0xFF30C150)
 val PinkDarker = Color(0xFFFF1744)
 val PinkLighter = Color(0xFFFF5778)
 
+val LightBackground = Color(0xFFF6F7FA)
+val SplashBackground = Color(0xFFE5E5E5)
+
 val BlackBackground = Color(0xFF10171D)
 val BlackPrimary = Color(0xFF252849)

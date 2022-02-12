@@ -19,6 +19,7 @@ private val DarkColorPalette = darkColors(
 
 private val LightColorPalette = lightColors(
     primary = BlueDarker,
+    background = LightBackground,
     onSecondary = BlackPrimary,
     onBackground = BlackPrimary,
     onSurface = BlackPrimary
@@ -27,13 +28,15 @@ private val LightColorPalette = lightColors(
 private val DarkColorCustomPalette = ColorsCustom(
     orange = OrangeLighter,
     green = GreenLighter,
-    pink = PinkLighter
+    pink = PinkLighter,
+    splash = BlackBackground
 )
 
 private val LightColorCustomPalette = ColorsCustom(
     orange = OrangeDarker,
     green = GreenDarker,
-    pink = PinkDarker
+    pink = PinkDarker,
+    splash = SplashBackground
 )
 
 @Composable

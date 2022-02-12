@@ -1,6 +1,5 @@
 package com.example.composedepartment.ui
 
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -13,7 +12,7 @@ fun MainScreen(navController: NavHostController) {
             SplashScreen(onFinished = { navController.navigate("Main") })
         }
         composable("Main") {
-            Text(text = "Hello Main!")
+            DepartmentScreen()
         }
     }
 }
