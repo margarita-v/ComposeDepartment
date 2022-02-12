@@ -6,9 +6,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,10 +40,8 @@ fun SplashScreen(
                 centerHorizontallyTo(parent)
                 top.linkTo(parent.top, margin = 96.dp)
             },
-            painter = painterResource(
-                id = R.drawable.ic_surf_dark.takeIf { darkTheme }
-                    ?: R.drawable.ic_surf_light
-            ),
+            painter = painterResource(R.drawable.ic_surf),
+            colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
             contentDescription = null
         )
         Image(
@@ -52,7 +52,8 @@ fun SplashScreen(
             painter = painterResource(
                 id = R.drawable.ic_splash_image_dark.takeIf { darkTheme }
                     ?: R.drawable.ic_splash_image_light
-            ), contentDescription = null
+            ),
+            contentDescription = null
         )
         Image(
             modifier = Modifier.constrainAs(logo) {
@@ -74,7 +75,7 @@ fun SplashScreen(
 }
 
 @Preview(showBackground = true, device = Devices.PIXEL)
-@Preview(showBackground = true, device = Devices.PIXEL, uiMode = UI_MODE_NIGHT_YES)
+@Preview(showBackground = true, device = Devices.PIXEL, uiMode = UI_MODE_NIGHT_YES, name = "Dark")
 @Composable
 private fun SplashScreenPreview() {
     ComposeDepartmentTheme {

@@ -18,4 +18,5 @@ val LightBackground = Color(0xFFF6F7FA)
 val SplashBackground = Color(0xFFE5E5E5)
 
 val BlackBackground = Color(0xFF10171D)
+val BlackSurface = Color(0xFF22292E)
 val BlackPrimary = Color(0xFF252849)
