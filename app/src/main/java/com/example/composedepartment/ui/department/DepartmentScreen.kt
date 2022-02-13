@@ -2,6 +2,7 @@ package com.example.composedepartment.ui.department
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -12,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.example.composedepartment.domain.Employee
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 
+@ExperimentalMaterialApi
 @Composable
 fun DepartmentScreen(
     modifier: Modifier = Modifier,
@@ -31,6 +33,7 @@ fun DepartmentScreen(
     }
 }
 
+@ExperimentalMaterialApi
 @Preview(showBackground = true, device = Devices.PIXEL)
 @Preview(showBackground = true, device = Devices.PIXEL, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable

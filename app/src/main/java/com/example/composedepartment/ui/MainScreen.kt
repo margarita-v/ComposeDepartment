@@ -1,5 +1,6 @@
 package com.example.composedepartment.ui
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -8,6 +9,7 @@ import com.example.composedepartment.interactor.Employees
 import com.example.composedepartment.ui.base.ScreenRoute
 import com.example.composedepartment.ui.department.DepartmentScreen
 
+@ExperimentalMaterialApi
 @Composable
 fun MainScreen(navController: NavHostController) {
     NavHost(navController, startDestination = ScreenRoute.Splash.route) {

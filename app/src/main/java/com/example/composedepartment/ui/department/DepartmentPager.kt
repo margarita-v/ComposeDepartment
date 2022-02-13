@@ -29,6 +29,7 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 import java.util.*
 
+@ExperimentalMaterialApi
 @OptIn(ExperimentalPagerApi::class, ExperimentalUnitApi::class)
 @Composable
 internal fun DepartmentPager(
@@ -85,7 +86,7 @@ internal fun DepartmentPager(
         state = pagerState,
     ) { page ->
         when (page) {
-            DepartmentTab.EMPLOYEES.ordinal -> Employees(employees)
+            DepartmentTab.EMPLOYEES.ordinal -> Employees(employees) {} //todo to employee screen
             DepartmentTab.PROJECTS.ordinal -> Projects()
             DepartmentTab.ABOUT.ordinal -> About()
         }
