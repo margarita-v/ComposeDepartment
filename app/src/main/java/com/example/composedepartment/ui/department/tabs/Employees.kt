@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -40,6 +41,7 @@ internal fun Employees(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight(),
+                    elevation = 10.dp,
                     onClick = { onEmployeeClick(employee) }
                 ) {
                     ConstraintLayout(modifier = Modifier.padding(16.dp)) {
@@ -78,12 +80,23 @@ internal fun Employees(
                             crossAxisSpacing = 4.dp
                         ) {
                             employee.skills.forEach { skill ->
-                                Text(
-                                    text = skill.name,
-                                    style = MaterialTheme.typography.overline.copy(
-                                        color = skill.color.toColor()
+                                val skillColor = skill.color.toColor()
+                                Chip(
+                                    modifier = Modifier.height(17.dp),
+                                    shape = RoundedCornerShape(12.dp),
+                                    colors = ChipDefaults.chipColors(
+                                        disabledBackgroundColor = skillColor.copy(alpha = 0.12f)
+                                    ),
+                                    onClick = { /*do nothing*/ },
+                                    enabled = false
+                                ) {
+                                    Text(
+                                        text = skill.name,
+                                        style = MaterialTheme.typography.overline.copy(
+                                            color = skillColor
+                                        )
                                     )
-                                )
+                                }
                             }
                         }
                     }
