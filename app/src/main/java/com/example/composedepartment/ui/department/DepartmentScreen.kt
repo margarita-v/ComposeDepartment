@@ -9,11 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.composedepartment.domain.Employee
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 
 @Composable
 fun DepartmentScreen(
     modifier: Modifier = Modifier,
+    employees: List<Employee> = listOf(),
     onSearchClick: () -> Unit = {}
 ) {
     Surface(
@@ -24,7 +26,7 @@ fun DepartmentScreen(
             Spacer(modifier = Modifier.size(8.dp))
             DepartmentAppBar(onSearchClick = onSearchClick)
             Spacer(modifier = Modifier.size(16.dp))
-            DepartmentPager()
+            DepartmentPager(employees = employees)
         }
     }
 }

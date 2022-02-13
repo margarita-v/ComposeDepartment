@@ -34,6 +34,8 @@ private val LightColorPalette = lightColors(
 )
 
 private val DarkColorCustomPalette = ColorsCustom(
+    blue = BlueLighter,
+    gray = Color.White,
     orange = OrangeLighter,
     green = GreenLighter,
     pink = PinkLighter,
@@ -41,6 +43,8 @@ private val DarkColorCustomPalette = ColorsCustom(
 )
 
 private val LightColorCustomPalette = ColorsCustom(
+    blue = BlueDarker,
+    gray = GrayLabel,
     orange = OrangeDarker,
     green = GreenDarker,
     pink = PinkDarker,

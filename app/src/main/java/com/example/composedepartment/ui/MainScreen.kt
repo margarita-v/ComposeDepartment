@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.composedepartment.interactor.Employees
 import com.example.composedepartment.ui.base.ScreenRoute
 import com.example.composedepartment.ui.department.DepartmentScreen
 
@@ -14,7 +15,7 @@ fun MainScreen(navController: NavHostController) {
             SplashScreen(onFinished = { navController.navigate(ScreenRoute.Main.route) })
         }
         composable(ScreenRoute.Main.route) {
-            DepartmentScreen()
+            DepartmentScreen(employees = Employees.employees)
         }
     }
 }

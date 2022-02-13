@@ -5,6 +5,8 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
 
 class ColorsCustom(
+    val blue: Color,
+    val gray: Color,
     val orange: Color,
     val green: Color,
     val pink: Color,

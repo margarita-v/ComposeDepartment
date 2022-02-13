@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
 import com.example.composedepartment.R
+import com.example.composedepartment.domain.Employee
 import com.example.composedepartment.ui.department.tabs.About
 import com.example.composedepartment.ui.department.tabs.Employees
 import com.example.composedepartment.ui.department.tabs.Projects
@@ -30,7 +31,10 @@ import java.util.*
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalUnitApi::class)
 @Composable
-internal fun DepartmentPager(modifier: Modifier = Modifier) {
+internal fun DepartmentPager(
+    modifier: Modifier = Modifier,
+    employees: List<Employee>
+) {
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -81,7 +85,7 @@ internal fun DepartmentPager(modifier: Modifier = Modifier) {
         state = pagerState,
     ) { page ->
         when (page) {
-            DepartmentTab.EMPLOYEES.ordinal -> Employees()
+            DepartmentTab.EMPLOYEES.ordinal -> Employees(employees)
             DepartmentTab.PROJECTS.ordinal -> Projects()
             DepartmentTab.ABOUT.ordinal -> About()
         }
