@@ -4,6 +4,5 @@
     <style name="Theme.ComposeDepartment" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:navigationBarColor">@color/black_background</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowIsTranslucent">true</item>
     </style>
 </resources>

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.ComposeDepartment" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">
+            @android:color/transparent
+        </item>
     </style>
 </resources>

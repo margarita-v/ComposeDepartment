@@ -57,7 +57,6 @@ private fun DepartmentAppBar(onSearchClick: () -> Unit = {}) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            //todo open surf site on click
             Image(
                 modifier = Modifier.size(width = 58.dp, height = 40.dp),
                 painter = painterResource(id = R.drawable.ic_surf),
