@@ -1,27 +1,29 @@
 package com.example.composedepartment.ui
 
 import android.content.res.Configuration
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.TextUnitType
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.*
 import com.example.composedepartment.R
 import com.example.composedepartment.ui.theme.ComposeDepartmentTheme
 import com.google.accompanist.pager.*
@@ -80,7 +82,7 @@ private fun DepartmentAppBar(onSearchClick: () -> Unit = {}) {
     }
 }
 
-@OptIn(ExperimentalPagerApi::class, androidx.compose.ui.unit.ExperimentalUnitApi::class)
+@OptIn(ExperimentalPagerApi::class, ExperimentalUnitApi::class)
 @Composable
 private fun DepartmentContent(modifier: Modifier = Modifier) {
     val pagerState = rememberPagerState()
@@ -134,6 +136,30 @@ private fun DepartmentContent(modifier: Modifier = Modifier) {
     ) { page ->
         Text(text = "Hello $page!")
     }
+}
+
+/**
+ * Experimental modifier which makes the indicator width constant
+ * @see Modifier.tabIndicatorOffset
+ */
+private fun Modifier.customTabIndicatorOffset(
+    currentTabPosition: TabPosition
+): Modifier = composed(
+    inspectorInfo = debugInspectorInfo {
+        name = "tabIndicatorOffset"
+        value = currentTabPosition
+    }
+) {
+    val indicatorWidth = 24.dp
+    val currentTabWidth = currentTabPosition.width
+    val indicatorOffset by animateDpAsState(
+        targetValue = currentTabPosition.left + currentTabWidth / 2 - indicatorWidth / 2,
+        animationSpec = tween(durationMillis = 250, easing = FastOutSlowInEasing)
+    )
+    fillMaxWidth()
+        .wrapContentSize(Alignment.BottomStart)
+        .offset(x = indicatorOffset)
+        .width(indicatorWidth)
 }
 
 @Preview(showBackground = true, device = Devices.PIXEL)
