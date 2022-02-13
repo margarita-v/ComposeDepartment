@@ -17,8 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.composedepartment.R
-import com.example.composedepartment.ui.theme.ComposeDepartmentTheme
-import com.example.composedepartment.ui.theme.custom.MaterialThemeCustom
+import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
+import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
 import kotlinx.coroutines.delay
 
 @Composable

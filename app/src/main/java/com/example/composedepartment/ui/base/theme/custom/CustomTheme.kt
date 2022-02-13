@@ -1,4 +1,4 @@
-package com.example.composedepartment.ui.theme.custom
+package com.example.composedepartment.ui.base.theme.custom
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
