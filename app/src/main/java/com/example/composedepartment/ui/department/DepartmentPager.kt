@@ -97,7 +97,7 @@ internal fun DepartmentPager(
         when (page) {
             DepartmentTab.EMPLOYEES.ordinal -> Employees(employees) {} //todo to employee screen
             DepartmentTab.PROJECTS.ordinal -> Projects()
-            DepartmentTab.ABOUT.ordinal -> About()
+            DepartmentTab.ABOUT.ordinal -> About({}, {}) // todo handle routes
         }
     }
 }

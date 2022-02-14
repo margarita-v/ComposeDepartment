@@ -5,4 +5,10 @@
         <item>Проекты</item>
         <item>О приложении</item>
     </string-array>
+    <!--region About -->
+    <string name="enable_dark_theme_text">Хочу тёмную тему</string>
+    <string name="go_to_chat_text">Перейти в чат участников</string>
+    <string name="go_to_github_text">ссылка на гитхаб</string>
+    <string name="about_description_text">Приложение сделано в рамках образовательного мероприятия\nandroid отдела</string>
+    <!--endregion About -->
 </resources>
