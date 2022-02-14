@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
 class ColorsCustom(
     val blue: Color,
     val gray: Color,
+    val grayTab: Color,
     val orange: Color,
     val green: Color,
     val pink: Color,

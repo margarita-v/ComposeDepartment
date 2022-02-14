@@ -1,8 +1,7 @@
 package com.example.composedepartment.ui.department
 
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -19,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
 import com.example.composedepartment.R
 import com.example.composedepartment.domain.Employee
+import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
 import com.example.composedepartment.ui.department.tabs.About
 import com.example.composedepartment.ui.department.tabs.Employees
 import com.example.composedepartment.ui.department.tabs.Projects
@@ -57,12 +57,21 @@ internal fun DepartmentPager(
         }
     ) {
         pages.forEachIndexed { index, title ->
+            val isSelected = pagerState.currentPage == index
+            val tabTextColor by animateColorAsState(
+                targetValue = if (isSelected) {
+                    MaterialTheme.colors.primary
+                } else {
+                    MaterialThemeCustom.colors.grayTab
+                },
+                animationSpec = tween(durationMillis = 100, easing = LinearEasing)
+            )
             Tab(
                 text = {
                     Text(
                         text = title.uppercase(Locale.getDefault()),
                         style = TextStyle(
-                            color = MaterialTheme.colors.primary,
+                            color = tabTextColor,
                             fontFamily = FontFamily.Default,
                             fontWeight = FontWeight.Bold,
                             letterSpacing = TextUnit(0.1f, TextUnitType.Em),
@@ -70,7 +79,7 @@ internal fun DepartmentPager(
                         )
                     )
                 },
-                selected = pagerState.currentPage == index,
+                selected = isSelected,
                 onClick = {
                     scope.launch {
                         pagerState.animateScrollToPage(index)
