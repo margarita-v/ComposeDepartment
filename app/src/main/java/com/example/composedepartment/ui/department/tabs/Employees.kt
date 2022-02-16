@@ -27,13 +27,9 @@ internal fun Employees(
     onEmployeeClick: (Employee) -> Unit
 ) {
     LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 24.dp),
+        modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        contentPadding = PaddingValues(
-            horizontal = 24.dp
-        )
+        contentPadding = PaddingValues(24.dp)
     ) {
         employees.forEach { employee ->
             item {
@@ -115,7 +111,8 @@ private fun DepartmentScreenPreview() {
         Surface {
             DepartmentScreen(
                 modifier = Modifier.fillMaxSize(),
-                employees = com.example.composedepartment.interactor.Employees.employees
+                employees = com.example.composedepartment.interactor.Employees.employees,
+                isDarkTheme = true
             )
         }
     }

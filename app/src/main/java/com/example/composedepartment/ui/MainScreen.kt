@@ -11,13 +11,21 @@ import com.example.composedepartment.ui.department.DepartmentScreen
 
 @ExperimentalMaterialApi
 @Composable
-fun MainScreen(navController: NavHostController) {
+fun MainScreen(
+    navController: NavHostController,
+    isDarkTheme: Boolean,
+    onDarkThemeToggle: (Boolean) -> Unit = {}
+) {
     NavHost(navController, startDestination = ScreenRoute.Splash.route) {
         composable(ScreenRoute.Splash.route) {
             SplashScreen(onFinished = { navController.navigate(ScreenRoute.Main.route) })
         }
         composable(ScreenRoute.Main.route) {
-            DepartmentScreen(employees = Employees.employees)
+            DepartmentScreen(
+                employees = Employees.employees,
+                isDarkTheme = isDarkTheme,
+                onDarkThemeToggle = onDarkThemeToggle
+            )
         }
     }
 }

@@ -27,10 +27,11 @@ import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
 @Composable
 internal fun About(
     onChatClicked: () -> Unit = {},
-    onGithubClicked: () -> Unit = {}
+    onGithubClicked: () -> Unit = {},
+    isDarkTheme: Boolean,
+    onDarkThemeToggle: (Boolean) -> Unit = {}
 ) {
-    // todo save and handle theme update
-    var isChecked by remember { mutableStateOf(true) }
+    var isChecked by remember { mutableStateOf(isDarkTheme) }
 
     Column(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -80,7 +81,10 @@ internal fun About(
                 )
                 Switch(
                     checked = isChecked,
-                    onCheckedChange = { isChecked = it },
+                    onCheckedChange = {
+                        isChecked = it
+                        onDarkThemeToggle(it)
+                    },
                     colors = SwitchDefaults.colors(
                         checkedThumbColor = DarkSwitch,
                         checkedTrackColor = Color.Black,
@@ -118,7 +122,7 @@ internal fun About(
 private fun AboutTabPreview() {
     ComposeDepartmentTheme {
         Surface {
-            About()
+            About(isDarkTheme = true)
         }
     }
 }

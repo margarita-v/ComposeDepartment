@@ -34,7 +34,9 @@ import java.util.*
 @Composable
 internal fun DepartmentPager(
     modifier: Modifier = Modifier,
-    employees: List<Employee>
+    employees: List<Employee>,
+    isDarkTheme: Boolean,
+    onDarkThemeToggle: (Boolean) -> Unit = {}
 ) {
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
@@ -97,7 +99,12 @@ internal fun DepartmentPager(
         when (page) {
             DepartmentTab.EMPLOYEES.ordinal -> Employees(employees) {} //todo to employee screen
             DepartmentTab.PROJECTS.ordinal -> Projects()
-            DepartmentTab.ABOUT.ordinal -> About({}, {}) // todo handle routes
+            DepartmentTab.ABOUT.ordinal -> About(
+                {},
+                {},
+                isDarkTheme = isDarkTheme,
+                onDarkThemeToggle = onDarkThemeToggle
+            ) // todo handle routes
         }
     }
 }

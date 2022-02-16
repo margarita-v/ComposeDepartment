@@ -18,7 +18,9 @@ import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 fun DepartmentScreen(
     modifier: Modifier = Modifier,
     employees: List<Employee> = listOf(),
-    onSearchClick: () -> Unit = {}
+    onSearchClick: () -> Unit = {},
+    isDarkTheme: Boolean,
+    onDarkThemeToggle: (Boolean) -> Unit = {}
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -27,8 +29,11 @@ fun DepartmentScreen(
         Column(modifier = Modifier.systemBarsPadding()) {
             Spacer(modifier = Modifier.size(8.dp))
             DepartmentAppBar(onSearchClick = onSearchClick)
-            Spacer(modifier = Modifier.size(16.dp))
-            DepartmentPager(employees = employees)
+            DepartmentPager(
+                employees = employees,
+                isDarkTheme = isDarkTheme,
+                onDarkThemeToggle = onDarkThemeToggle
+            )
         }
     }
 }
@@ -40,7 +45,7 @@ fun DepartmentScreen(
 private fun DepartmentScreenPreview() {
     ComposeDepartmentTheme {
         Surface {
-            DepartmentScreen(modifier = Modifier.fillMaxSize())
+            DepartmentScreen(modifier = Modifier.fillMaxSize(), isDarkTheme = true)
         }
     }
 }
