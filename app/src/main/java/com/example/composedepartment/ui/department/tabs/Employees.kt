@@ -111,8 +111,7 @@ private fun DepartmentScreenPreview() {
         Surface {
             DepartmentScreen(
                 modifier = Modifier.fillMaxSize(),
-                employees = com.example.composedepartment.interactor.Employees.employees,
-                isDarkTheme = true
+                employees = com.example.composedepartment.interactor.Employees.employees
             )
         }
     }

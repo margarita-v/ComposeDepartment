@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.example.composedepartment.LocalDarkThemeEnabled
 import com.example.composedepartment.R
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
@@ -24,7 +25,6 @@ import kotlinx.coroutines.delay
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,
-    darkTheme: Boolean,
     delay: Long = 1000L,
     onFinished: () -> Unit = {}
 ) {
@@ -50,7 +50,7 @@ fun SplashScreen(
                 top.linkTo(surf.bottom, margin = (-16).dp)
             },
             painter = painterResource(
-                id = R.drawable.ic_splash_image_dark.takeIf { darkTheme }
+                id = R.drawable.ic_splash_image_dark.takeIf { LocalDarkThemeEnabled.current }
                     ?: R.drawable.ic_splash_image_light
             ),
             contentDescription = null
@@ -63,7 +63,7 @@ fun SplashScreen(
                     bottom.linkTo(parent.bottom, margin = 24.dp)
                 },
             painter = painterResource(
-                id = R.drawable.ic_android_dark.takeIf { darkTheme }
+                id = R.drawable.ic_android_dark.takeIf { LocalDarkThemeEnabled.current }
                     ?: R.drawable.ic_android_light
             ),
             contentDescription = null
@@ -81,6 +81,6 @@ fun SplashScreen(
 @Composable
 private fun SplashScreenPreview() {
     ComposeDepartmentTheme {
-        SplashScreen(modifier = Modifier.fillMaxSize(), darkTheme = false)
+        SplashScreen(modifier = Modifier.fillMaxSize())
     }
 }

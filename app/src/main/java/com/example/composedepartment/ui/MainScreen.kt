@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.composedepartment.LocalDarkThemeEnabled
 import com.example.composedepartment.interactor.Employees
 import com.example.composedepartment.ui.base.ScreenRoute
 import com.example.composedepartment.ui.department.DepartmentScreen
@@ -13,20 +14,17 @@ import com.example.composedepartment.ui.department.DepartmentScreen
 @Composable
 fun MainScreen(
     navController: NavHostController,
-    isDarkTheme: Boolean,
     onDarkThemeToggle: (Boolean) -> Unit = {}
 ) {
     NavHost(navController, startDestination = ScreenRoute.Splash.route) {
         composable(ScreenRoute.Splash.route) {
             SplashScreen(
-                onFinished = { navController.navigate(ScreenRoute.Main.route) },
-                darkTheme = isDarkTheme
+                onFinished = { navController.navigate(ScreenRoute.Main.route) }
             )
         }
         composable(ScreenRoute.Main.route) {
             DepartmentScreen(
                 employees = Employees.employees,
-                isDarkTheme = isDarkTheme,
                 onDarkThemeToggle = onDarkThemeToggle
             )
         }

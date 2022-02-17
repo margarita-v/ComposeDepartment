@@ -16,6 +16,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
+import com.example.composedepartment.LocalDarkThemeEnabled
 import com.example.composedepartment.R
 import com.example.composedepartment.domain.Employee
 import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
@@ -35,7 +36,6 @@ import java.util.*
 internal fun DepartmentPager(
     modifier: Modifier = Modifier,
     employees: List<Employee>,
-    isDarkTheme: Boolean,
     onDarkThemeToggle: (Boolean) -> Unit = {}
 ) {
     val pagerState = rememberPagerState()
@@ -102,7 +102,7 @@ internal fun DepartmentPager(
             DepartmentTab.ABOUT.ordinal -> About(
                 {},
                 {},
-                isDarkTheme = isDarkTheme,
+                isDarkTheme = LocalDarkThemeEnabled.current,
                 onDarkThemeToggle = onDarkThemeToggle
             ) // todo handle routes
         }

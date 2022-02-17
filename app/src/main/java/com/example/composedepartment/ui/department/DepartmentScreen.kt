@@ -19,7 +19,6 @@ fun DepartmentScreen(
     modifier: Modifier = Modifier,
     employees: List<Employee> = listOf(),
     onSearchClick: () -> Unit = {},
-    isDarkTheme: Boolean,
     onDarkThemeToggle: (Boolean) -> Unit = {}
 ) {
     Surface(
@@ -31,7 +30,6 @@ fun DepartmentScreen(
             DepartmentAppBar(onSearchClick = onSearchClick)
             DepartmentPager(
                 employees = employees,
-                isDarkTheme = isDarkTheme,
                 onDarkThemeToggle = onDarkThemeToggle
             )
         }
@@ -45,7 +43,7 @@ fun DepartmentScreen(
 private fun DepartmentScreenPreview() {
     ComposeDepartmentTheme {
         Surface {
-            DepartmentScreen(modifier = Modifier.fillMaxSize(), isDarkTheme = true)
+            DepartmentScreen(modifier = Modifier.fillMaxSize())
         }
     }
 }
