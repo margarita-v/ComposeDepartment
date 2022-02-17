@@ -7,7 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,18 +15,11 @@ class MainViewModel @Inject constructor(
     private val userSettingsInteractor: UserSettingsInteractor
 ) : ViewModel() {
 
-    private val _isDarkTheme: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val isDarkTheme: StateFlow<Boolean> get() = _isDarkTheme.asStateFlow()
+    // the correct initial value is required in order to avoid UI glitches
+    private val _isDarkTheme: MutableStateFlow<Boolean> =
+        MutableStateFlow(userSettingsInteractor.isDarkThemeEnabledBlocking())
 
-    init {
-        //todo fix first launch theme
-        viewModelScope.launch {
-            userSettingsInteractor.isDarkThemeEnabled()
-                .collect {
-                    _isDarkTheme.value = it
-                }
-        }
-    }
+    val isDarkTheme: StateFlow<Boolean> get() = _isDarkTheme.asStateFlow()
 
     fun toggleDarkTheme(isEnabled: Boolean) {
         _isDarkTheme.value = isEnabled

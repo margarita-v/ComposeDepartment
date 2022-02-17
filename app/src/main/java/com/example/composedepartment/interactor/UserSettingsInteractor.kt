@@ -8,14 +8,23 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 private val Context.userSettingsDataStore: DataStore<Preferences> by preferencesDataStore(name = "user_settings")
 private val isDarkThemeEnabledKey = booleanPreferencesKey("is_dark_theme_enabled")
 
 class UserSettingsInteractor(private val context: Context) {
+
+    fun isDarkThemeEnabledBlocking(): Boolean =
+        runBlocking {
+            context.userSettingsDataStore.data.first().let {
+                it[isDarkThemeEnabledKey] ?: false
+            }
+        }
 
     fun isDarkThemeEnabled(): Flow<Boolean> =
         context.userSettingsDataStore.data
