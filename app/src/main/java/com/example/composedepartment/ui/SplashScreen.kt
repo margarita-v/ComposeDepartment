@@ -3,9 +3,8 @@ package com.example.composedepartment.ui
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,12 +18,13 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.composedepartment.R
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
+import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean,
     delay: Long = 1000L,
     onFinished: () -> Unit = {}
 ) {
@@ -32,7 +32,7 @@ fun SplashScreen(
         modifier
             .fillMaxSize()
             .background(MaterialThemeCustom.colors.splash)
-            .systemBarsPadding()
+            .statusBarsPadding()
     ) {
         val (surf, image, logo) = createRefs()
         Image(
@@ -56,10 +56,12 @@ fun SplashScreen(
             contentDescription = null
         )
         Image(
-            modifier = Modifier.constrainAs(logo) {
-                centerHorizontallyTo(parent)
-                bottom.linkTo(parent.bottom, margin = 24.dp)
-            },
+            modifier = Modifier
+                .navigationBarsPadding()
+                .constrainAs(logo) {
+                    centerHorizontallyTo(parent)
+                    bottom.linkTo(parent.bottom, margin = 24.dp)
+                },
             painter = painterResource(
                 id = R.drawable.ic_android_dark.takeIf { darkTheme }
                     ?: R.drawable.ic_android_light
@@ -79,6 +81,6 @@ fun SplashScreen(
 @Composable
 private fun SplashScreenPreview() {
     ComposeDepartmentTheme {
-        SplashScreen(modifier = Modifier.fillMaxSize())
+        SplashScreen(modifier = Modifier.fillMaxSize(), darkTheme = false)
     }
 }

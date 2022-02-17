@@ -14,7 +14,7 @@ class ColorsCustom(
     val splash: Color
 )
 
-private object LocalMaterialThemeCustom {
+object LocalMaterialThemeCustom {
     var colors: ColorsCustom? = null
 }
 

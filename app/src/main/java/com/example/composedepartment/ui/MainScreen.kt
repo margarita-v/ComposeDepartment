@@ -18,7 +18,10 @@ fun MainScreen(
 ) {
     NavHost(navController, startDestination = ScreenRoute.Splash.route) {
         composable(ScreenRoute.Splash.route) {
-            SplashScreen(onFinished = { navController.navigate(ScreenRoute.Main.route) })
+            SplashScreen(
+                onFinished = { navController.navigate(ScreenRoute.Main.route) },
+                darkTheme = isDarkTheme
+            )
         }
         composable(ScreenRoute.Main.route) {
             DepartmentScreen(
