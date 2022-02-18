@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composedepartment.domain.Employee
+import com.example.composedepartment.domain.Project
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 
 @ExperimentalMaterialApi
@@ -18,6 +19,7 @@ import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 fun DepartmentScreen(
     modifier: Modifier = Modifier,
     employees: List<Employee> = listOf(),
+    projects: List<Project> = listOf(),
     onSearchClick: () -> Unit = {},
     onDarkThemeToggle: (Boolean) -> Unit = {}
 ) {
@@ -30,6 +32,7 @@ fun DepartmentScreen(
             DepartmentAppBar(onSearchClick = onSearchClick)
             DepartmentPager(
                 employees = employees,
+                projects = projects,
                 onDarkThemeToggle = onDarkThemeToggle
             )
         }

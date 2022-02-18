@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.composedepartment.interactor.Employees
+import com.example.composedepartment.interactor.Projects
 import com.example.composedepartment.ui.base.ScreenRoute
 import com.example.composedepartment.ui.department.DepartmentScreen
 
@@ -28,6 +29,7 @@ fun MainScreen(
         composable(ScreenRoute.Main.route) {
             DepartmentScreen(
                 employees = Employees.employees,
+                projects = Projects.projects,
                 onDarkThemeToggle = onDarkThemeToggle
             )
         }
