@@ -6,18 +6,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.composedepartment.R
 import com.example.composedepartment.domain.Project
+import com.example.composedepartment.ui.base.components.AvatarsView
 import com.example.composedepartment.ui.base.components.ProjectFirstLetter
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
@@ -49,6 +45,12 @@ internal fun Projects(
                             project = project,
                             modifier = Modifier.constrainAs(icon) {
                                 top.linkTo(parent.top)
+                            }
+                        )
+                        AvatarsView(
+                            photos = project.leads.map { it.photo },
+                            modifier = Modifier.constrainAs(leads) {
+                                end.linkTo(parent.end)
                             }
                         )
                         Text(

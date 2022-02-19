@@ -6,9 +6,9 @@ import com.example.composedepartment.domain.Project
 
 /** For UI stub data purpose only */
 object Projects {
-    private val leads = Employees.employees.take(3)
     private const val description = "Такое понимание ситуации восходит\n" +
             "к Эл Райс, при этом BTL транслирует конструктивный медиамикс, отвоевывая свою долю рынка."
+    val leads = Employees.employees.take(3)
 
     val projects = listOf(
         Project(
