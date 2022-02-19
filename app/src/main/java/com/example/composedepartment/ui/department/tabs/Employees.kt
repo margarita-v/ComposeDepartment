@@ -24,7 +24,7 @@ import com.google.accompanist.flowlayout.FlowRow
 @Composable
 internal fun Employees(
     employees: List<Employee>,
-    onEmployeeClick: (Employee) -> Unit
+    onEmployeeClick: (String) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -38,7 +38,7 @@ internal fun Employees(
                         .fillMaxWidth()
                         .wrapContentHeight(),
                     elevation = 10.dp,
-                    onClick = { onEmployeeClick(employee) }
+                    onClick = { onEmployeeClick(employee.id) }
                 ) {
                     ConstraintLayout(modifier = Modifier.padding(16.dp)) {
                         val (name, photo, job, skills) = createRefs()
