@@ -9,7 +9,9 @@ data class Employee(
     val id: String = UUID.randomUUID().toString(),
     val name: String = "",
     val job: String = "",
+    val age: Int = 0,
     val phone: String = "+7 (931) 456 32 34",
+    val city: String = "Санкт-Петербург",
     @DrawableRes val photo: Int = -1, // string url for real app
     val skills: List<Skill> = listOf()
 )

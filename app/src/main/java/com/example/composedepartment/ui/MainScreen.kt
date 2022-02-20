@@ -57,18 +57,12 @@ fun MainScreen(
                 )
             ) { backStackEntry ->
                 backStackEntry.arguments?.let { bundle ->
-                    val employee = Employees.employees.first {
-                        it.id == bundle.getString(argument0)!!
-                    }
                     EmployeeDetails(
-                        employee = employee,
+                        employee = Employees.employees.first {
+                            it.id == bundle.getString(argument0)!!
+                        },
                         onBackClicked = { navController.popBackStack() },
-                        onCallClicked = {
-                            goToPhoneSystemApp(
-                                context = context,
-                                phone = employee.phone
-                            )
-                        }
+                        onCallClicked = { goToPhoneSystemApp(context = context, phone = it) }
                     )
                 }
             }

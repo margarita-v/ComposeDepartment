@@ -5,4 +5,9 @@
         <item quantity="few">%d участника</item>
         <item quantity="other">%d участников</item>
     </plurals>
+    <plurals name="years">
+        <item quantity="one">%d год</item>
+        <item quantity="few">%d года</item>
+        <item quantity="other">%d лет</item>
+    </plurals>
 </resources>
