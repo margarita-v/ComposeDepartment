@@ -13,6 +13,7 @@ import com.example.composedepartment.ui.base.AppNavigation
 import com.example.composedepartment.ui.department.DepartmentScreen
 import com.example.composedepartment.ui.department.details.EmployeeDetails
 
+//todo animate navigations
 @ExperimentalMaterialApi
 @Composable
 fun MainScreen(

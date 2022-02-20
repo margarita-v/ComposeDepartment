@@ -30,7 +30,7 @@ fun DepartmentScreen(
     ) {
         Column(modifier = Modifier.systemBarsPadding()) {
             Spacer(modifier = Modifier.size(8.dp))
-            DepartmentAppBar(onSearchClick = onSearchClick)
+            DepartmentAppBarView(onSearchClick = onSearchClick)
             DepartmentPager(
                 employees = employees,
                 projects = projects,

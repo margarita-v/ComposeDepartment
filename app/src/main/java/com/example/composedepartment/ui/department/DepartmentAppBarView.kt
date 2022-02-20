@@ -1,5 +1,6 @@
 package com.example.composedepartment.ui.department
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -8,12 +9,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composedepartment.R
 import com.example.composedepartment.ui.base.components.NavigationButton
+import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 
 @Composable
-internal fun DepartmentAppBar(onSearchClick: () -> Unit = {}) {
+internal fun DepartmentAppBarView(onSearchClick: () -> Unit = {}) {
     TopAppBar(
         modifier = Modifier.padding(horizontal = 16.dp),
         backgroundColor = MaterialTheme.colors.background,
@@ -33,5 +37,14 @@ internal fun DepartmentAppBar(onSearchClick: () -> Unit = {}) {
                 onSearchClick()
             }
         }
+    }
+}
+
+@Preview(showBackground = true, device = Devices.PIXEL)
+@Preview(showBackground = true, device = Devices.PIXEL, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun DepartmentAppBarPreview() {
+    ComposeDepartmentTheme {
+        DepartmentAppBarView()
     }
 }

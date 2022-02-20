@@ -14,7 +14,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.composedepartment.R
 import com.example.composedepartment.domain.Project
 import com.example.composedepartment.ui.base.components.AvatarsView
-import com.example.composedepartment.ui.base.components.ProjectFirstLetter
+import com.example.composedepartment.ui.base.components.ProjectFirstLetterView
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
 import com.example.composedepartment.ui.utils.pluralResource
@@ -41,7 +41,7 @@ internal fun Projects(
                 ) {
                     ConstraintLayout(modifier = Modifier.padding(16.dp)) {
                         val (icon, members, name, leads) = createRefs()
-                        ProjectFirstLetter(
+                        ProjectFirstLetterView(
                             project = project,
                             modifier = Modifier.constrainAs(icon) {
                                 top.linkTo(parent.top)

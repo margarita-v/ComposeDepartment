@@ -4,7 +4,6 @@ import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,16 +14,14 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.example.composedepartment.domain.Employee
+import com.example.composedepartment.ui.base.components.SkillsView
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
-import com.example.composedepartment.ui.department.DepartmentScreen
-import com.example.composedepartment.ui.utils.toColor
-import com.google.accompanist.flowlayout.FlowRow
 
 @ExperimentalMaterialApi
 @Composable
 internal fun Employees(
     employees: List<Employee>,
-    onEmployeeClick: (String) -> Unit
+    onEmployeeClick: (String) -> Unit = {}
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -64,37 +61,15 @@ internal fun Employees(
                             text = employee.job,
                             style = MaterialTheme.typography.subtitle2
                         )
-                        FlowRow(
-                            modifier = Modifier
-                                .constrainAs(skills) {
-                                    top.linkTo(job.bottom, margin = 8.dp)
-                                    start.linkTo(photo.end, margin = 16.dp)
-                                    end.linkTo(parent.end, margin = 16.dp)
-                                    width = Dimension.fillToConstraints
-                                },
-                            mainAxisSpacing = 4.dp,
-                            crossAxisSpacing = 4.dp
-                        ) {
-                            employee.skills.forEach { skill ->
-                                val skillColor = skill.color.toColor()
-                                Chip(
-                                    modifier = Modifier.height(17.dp),
-                                    shape = RoundedCornerShape(12.dp),
-                                    colors = ChipDefaults.chipColors(
-                                        disabledBackgroundColor = skillColor.copy(alpha = 0.12f)
-                                    ),
-                                    onClick = { /*do nothing*/ },
-                                    enabled = false
-                                ) {
-                                    Text(
-                                        text = skill.name,
-                                        style = MaterialTheme.typography.overline.copy(
-                                            color = skillColor
-                                        )
-                                    )
-                                }
+                        SkillsView(
+                            skills = employee.skills,
+                            modifier = Modifier.constrainAs(skills) {
+                                top.linkTo(job.bottom, margin = 8.dp)
+                                start.linkTo(photo.end, margin = 16.dp)
+                                end.linkTo(parent.end, margin = 16.dp)
+                                width = Dimension.fillToConstraints
                             }
-                        }
+                        )
                     }
                 }
             }
@@ -106,11 +81,10 @@ internal fun Employees(
 @Preview(showBackground = true, device = Devices.PIXEL)
 @Preview(showBackground = true, device = Devices.PIXEL, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun DepartmentScreenPreview() {
+private fun EmployeesPreview() {
     ComposeDepartmentTheme {
         Surface {
-            DepartmentScreen(
-                modifier = Modifier.fillMaxSize(),
+            Employees(
                 employees = com.example.composedepartment.interactor.Employees.employees
             )
         }
