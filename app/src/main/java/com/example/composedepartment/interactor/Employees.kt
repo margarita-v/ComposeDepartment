@@ -12,6 +12,7 @@ object Employees {
             name = "Ольга Кудрявцева",
             job = "Аналитик-стажёр",
             age = 21,
+            experienceMonths = 0,
             photo = R.drawable.ic_person_1,
             skills = listOf(
                 Skill("Маркетинг", EntityColor.BLUE),
@@ -22,6 +23,7 @@ object Employees {
             name = "Игорь Крутой",
             job = "IOS Разработчик",
             age = 23,
+            experienceMonths = 11,
             photo = R.drawable.ic_person_2,
             skills = listOf(
                 Skill("Разработка", EntityColor.ORANGE),
@@ -35,6 +37,7 @@ object Employees {
             name = "Алеся Патрикеевна",
             job = "UX/UI Дизайнер",
             age = 25,
+            experienceMonths = 13,
             photo = R.drawable.ic_person_3,
             skills = listOf(
                 Skill("Дизайн", EntityColor.GREEN),
@@ -47,6 +50,7 @@ object Employees {
             name = "Иннокентий Христорожденный",
             job = "Бухгалтер",
             age = 31,
+            experienceMonths = 24,
             photo = R.drawable.ic_person_4,
             skills = listOf(
                 Skill("Бухгалтерия", EntityColor.PINK),

@@ -12,4 +12,13 @@
     <string name="go_to_github_text">ссылка на гитхаб</string>
     <string name="about_description_text">Приложение сделано в рамках образовательного мероприятия\nandroid отдела</string>
     <!--endregion About -->
+    <!--region EmployeeDetailsScreen -->
+    <string name="employee_title">О сотруднике</string>
+    <string name="employee_job">Должность</string>
+    <string name="employee_experience">Опыт работы</string>
+    <string name="employee_department">Отдел</string>
+    <string name="employee_no_experience">нет</string>
+    <string name="employee_year_short">%d г.</string>
+    <string name="employee_month_short">%d мес.</string>
+    <!--endregion EmployeeDetailsScreen -->
 </resources>

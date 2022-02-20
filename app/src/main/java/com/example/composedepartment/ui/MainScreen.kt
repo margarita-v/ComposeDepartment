@@ -12,7 +12,7 @@ import com.example.composedepartment.interactor.Employees
 import com.example.composedepartment.interactor.Projects
 import com.example.composedepartment.ui.base.AppNavigation
 import com.example.composedepartment.ui.department.DepartmentScreen
-import com.example.composedepartment.ui.department.details.EmployeeDetails
+import com.example.composedepartment.ui.department.details.EmployeeDetailsScreen
 import com.example.composedepartment.ui.utils.goToPhoneSystemApp
 
 //todo animate navigations
@@ -57,7 +57,7 @@ fun MainScreen(
                 )
             ) { backStackEntry ->
                 backStackEntry.arguments?.let { bundle ->
-                    EmployeeDetails(
+                    EmployeeDetailsScreen(
                         employee = Employees.employees.first {
                             it.id == bundle.getString(argument0)!!
                         },
