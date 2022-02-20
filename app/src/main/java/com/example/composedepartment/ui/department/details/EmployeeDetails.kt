@@ -19,14 +19,19 @@ import com.example.composedepartment.ui.base.components.NavigationTopBarView
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 
 @Composable
-fun EmployeeDetails(employee: Employee, modifier: Modifier = Modifier, onCallClicked: () -> Unit) {
+fun EmployeeDetails(
+    employee: Employee,
+    modifier: Modifier = Modifier,
+    onBackClicked: () -> Unit,
+    onCallClicked: () -> Unit
+) {
     Surface(
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
         Column(modifier = Modifier.systemBarsPadding()) {
             NavigationTopBarView(
-                onNavigationClicked = { /*TODO*/ },
+                onNavigationClicked = onBackClicked,
                 actionData = NavigationTopBarActionData(
                     contentDescription = "Call",
                     iconResId = R.drawable.ic_call,
@@ -44,7 +49,11 @@ fun EmployeeDetails(employee: Employee, modifier: Modifier = Modifier, onCallCli
 private fun DepartmentScreenPreview() {
     ComposeDepartmentTheme {
         Surface {
-            EmployeeDetails(employee = Employees.employees.first(), onCallClicked = {})
+            EmployeeDetails(
+                employee = Employees.employees.first(),
+                onBackClicked = {},
+                onCallClicked = {}
+            )
         }
     }
 }

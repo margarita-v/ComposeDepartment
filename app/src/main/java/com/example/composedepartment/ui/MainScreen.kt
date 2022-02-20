@@ -2,6 +2,7 @@ package com.example.composedepartment.ui
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -12,6 +13,7 @@ import com.example.composedepartment.interactor.Projects
 import com.example.composedepartment.ui.base.AppNavigation
 import com.example.composedepartment.ui.department.DepartmentScreen
 import com.example.composedepartment.ui.department.details.EmployeeDetails
+import com.example.composedepartment.ui.utils.goToPhoneSystemApp
 
 //todo animate navigations
 @ExperimentalMaterialApi
@@ -20,6 +22,7 @@ fun MainScreen(
     navController: NavHostController,
     onDarkThemeToggle: (Boolean) -> Unit = {}
 ) {
+    val context = LocalContext.current
     NavHost(navController, startDestination = AppNavigation.SplashNavScreen.route) {
         composable(AppNavigation.SplashNavScreen.route) {
             SplashScreen(
@@ -54,11 +57,18 @@ fun MainScreen(
                 )
             ) { backStackEntry ->
                 backStackEntry.arguments?.let { bundle ->
+                    val employee = Employees.employees.first {
+                        it.id == bundle.getString(argument0)!!
+                    }
                     EmployeeDetails(
-                        employee = Employees.employees.first {
-                            it.id == bundle.getString(argument0)!!
-                        },
-                        onCallClicked = {} //todo call
+                        employee = employee,
+                        onBackClicked = { navController.popBackStack() },
+                        onCallClicked = {
+                            goToPhoneSystemApp(
+                                context = context,
+                                phone = employee.phone
+                            )
+                        }
                     )
                 }
             }
