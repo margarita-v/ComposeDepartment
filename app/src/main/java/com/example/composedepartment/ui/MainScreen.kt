@@ -57,7 +57,8 @@ fun MainScreen(
                     EmployeeDetails(
                         employee = Employees.employees.first {
                             it.id == bundle.getString(argument0)!!
-                        }
+                        },
+                        onCallClicked = {} //todo call
                     )
                 }
             }

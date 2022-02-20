@@ -19,12 +19,11 @@ import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 @Composable
 internal fun DepartmentAppBarView(onSearchClick: () -> Unit = {}) {
     TopAppBar(
-        modifier = Modifier.padding(horizontal = 16.dp),
         backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp,
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(top = 8.dp, start = 16.dp, end = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Image(
