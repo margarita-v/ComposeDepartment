@@ -2,11 +2,14 @@ package com.example.composedepartment.ui.department.details
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
@@ -30,6 +33,8 @@ import com.example.composedepartment.ui.base.components.ProjectFirstLetterView
 import com.example.composedepartment.ui.base.components.SkillsView
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
+import com.example.composedepartment.ui.department.details.common.DetailsCommonContainer
+import com.example.composedepartment.ui.department.details.common.DetailsCommonInfo
 import com.example.composedepartment.ui.utils.pluralResource
 
 @ExperimentalMaterialApi
@@ -43,6 +48,7 @@ fun EmployeeDetailsScreen(
 ) {
     DetailsCommonContainer(
         onBackClicked = onBackClicked,
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
         actionData = NavigationTopBarActionData(
             contentDescription = "Call",
@@ -99,28 +105,13 @@ private fun EmployeeHeader(employee: Employee, onCallClicked: (String) -> Unit) 
 @ExperimentalMaterialApi
 @Composable
 private fun EmployeeInfo(employee: Employee, onProjectClicked: (String) -> Unit) {
-    Surface(
-        modifier = Modifier
-            .padding(top = 40.dp)
-            .fillMaxWidth()
-            .wrapContentHeight(),
-        elevation = 10.dp,
-        shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
-    ) {
-        Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 24.dp)) {
-            Text(
-                text = stringResource(id = R.string.employee_title),
-                style = MaterialTheme.typography.h4.copy(
-                    fontWeight = FontWeight.Bold
-                )
-            )
-            AboutEmployee(employee)
-            AboutProjects(
-                employee = employee,
-                project = Projects.projects.firstOrNull { it.id == employee.projectId },
-                onProjectClicked = onProjectClicked
-            )
-        }
+    DetailsCommonInfo(titleRes = R.string.employee_title) {
+        AboutEmployee(employee)
+        AboutProjects(
+            employee = employee,
+            project = Projects.projects.firstOrNull { it.id == employee.projectId },
+            onProjectClicked = onProjectClicked
+        )
     }
 }
 

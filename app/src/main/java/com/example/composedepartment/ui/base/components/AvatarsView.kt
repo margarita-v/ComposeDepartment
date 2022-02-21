@@ -9,13 +9,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.composedepartment.interactor.Projects
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
@@ -24,11 +24,11 @@ import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 fun AvatarsView(
     photos: List<Int>,
     modifier: Modifier = Modifier,
+    restCount: Int = 0,
+    size: Dp = 34.dp,
     spaceBetween: Int = 10
 ) {
-    Row(
-        modifier = modifier.wrapContentWidth(align = Alignment.End)
-    ) {
+    Row(modifier = modifier.wrapContentWidth()) {
         photos.forEachIndexed { index, photo ->
             val offset = when {
                 index == 0 -> spaceBetween * 2
@@ -38,7 +38,7 @@ fun AvatarsView(
             Image(
                 modifier = Modifier
                     .offset(x = offset.dp)
-                    .size(34.dp)
+                    .size(size = size)
                     .clip(CircleShape)
                     .border(2.dp, Color.White, CircleShape),
                 painter = painterResource(id = photo),

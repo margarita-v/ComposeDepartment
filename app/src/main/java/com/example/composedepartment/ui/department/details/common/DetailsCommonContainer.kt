@@ -1,4 +1,4 @@
-package com.example.composedepartment.ui.department.details
+package com.example.composedepartment.ui.department.details.common
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +16,7 @@ import com.example.composedepartment.ui.base.components.NavigationTopBarView
 @Composable
 internal fun DetailsCommonContainer(
     onBackClicked: () -> Unit,
+    horizontalAlignment: Alignment.Horizontal,
     modifier: Modifier = Modifier,
     actionData: NavigationTopBarActionData? = null,
     content: @Composable LazyItemScope.() -> Unit
@@ -31,7 +32,7 @@ internal fun DetailsCommonContainer(
             )
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = horizontalAlignment
             ) {
                 item {
                     content()

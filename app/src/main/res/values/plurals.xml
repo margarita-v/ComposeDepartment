@@ -10,6 +10,11 @@
         <item quantity="few">%d года</item>
         <item quantity="other">%d лет</item>
     </plurals>
+    <plurals name="days">
+        <item quantity="one">день</item>
+        <item quantity="few">дня</item>
+        <item quantity="other">дней</item>
+    </plurals>
     <plurals name="projects">
         <item quantity="one">в %d проекте</item>
         <item quantity="few">в %d проектах</item>

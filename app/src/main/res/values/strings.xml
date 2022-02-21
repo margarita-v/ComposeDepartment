@@ -25,4 +25,10 @@
     <string name="employee_experience_female">Участвовала\u00A0</string>
     <string name="employee_skills_title">Навыки</string>
     <!--endregion EmployeeDetailsScreen -->
+    <!--region ProjectDetailsScreen -->
+    <string name="project_title">О проекте</string>
+    <string name="project_team">Команда</string>
+    <string name="project_all">Всего\u00A0</string>
+    <string name="project_days">Время жизни\nпроекта (счетчик)</string>
+    <!--region ProjectDetailsScreen -->
 </resources>
