@@ -23,7 +23,7 @@ import com.example.composedepartment.ui.utils.pluralResource
 @Composable
 internal fun Projects(
     projects: List<Project>,
-    onProjectClick: (Project) -> Unit
+    onProjectClick: (String) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -37,7 +37,7 @@ internal fun Projects(
                         .fillMaxWidth()
                         .wrapContentHeight(),
                     elevation = 10.dp,
-                    onClick = { onProjectClick(project) }
+                    onClick = { onProjectClick(project.id) }
                 ) {
                     ConstraintLayout(modifier = Modifier.padding(16.dp)) {
                         val (icon, members, name, leads) = createRefs()

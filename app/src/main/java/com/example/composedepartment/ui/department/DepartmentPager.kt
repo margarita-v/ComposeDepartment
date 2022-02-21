@@ -39,7 +39,8 @@ internal fun DepartmentPager(
     employees: List<Employee>,
     projects: List<Project>,
     onDarkThemeToggle: (Boolean) -> Unit = {},
-    onEmployeeClicked: (String) -> Unit = {}
+    onEmployeeClicked: (String) -> Unit = {},
+    onProjectClicked: (String) -> Unit = {}
 ) {
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
@@ -101,13 +102,13 @@ internal fun DepartmentPager(
     ) { page ->
         when (page) {
             DepartmentTab.EMPLOYEES.ordinal -> Employees(employees, onEmployeeClicked)
-            DepartmentTab.PROJECTS.ordinal -> Projects(projects) {} // todo to project screen
+            DepartmentTab.PROJECTS.ordinal -> Projects(projects, onProjectClicked)
             DepartmentTab.ABOUT.ordinal -> About(
-                {},
-                {},
+                onChatClicked = {},
+                onGithubClicked = {},
                 isDarkTheme = LocalDarkThemeEnabled.current,
                 onDarkThemeToggle = onDarkThemeToggle
-            ) // todo handle routes
+            )
         }
     }
 }

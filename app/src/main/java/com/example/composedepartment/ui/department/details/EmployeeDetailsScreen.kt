@@ -3,12 +3,10 @@ package com.example.composedepartment.ui.department.details
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
@@ -28,7 +26,6 @@ import com.example.composedepartment.domain.Project
 import com.example.composedepartment.interactor.Employees
 import com.example.composedepartment.interactor.Projects
 import com.example.composedepartment.ui.base.components.NavigationTopBarActionData
-import com.example.composedepartment.ui.base.components.NavigationTopBarView
 import com.example.composedepartment.ui.base.components.ProjectFirstLetterView
 import com.example.composedepartment.ui.base.components.SkillsView
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
@@ -41,32 +38,21 @@ fun EmployeeDetailsScreen(
     employee: Employee,
     modifier: Modifier = Modifier,
     onBackClicked: () -> Unit,
-    onCallClicked: (String) -> Unit
+    onCallClicked: (String) -> Unit,
+    onProjectClicked: (String) -> Unit
 ) {
-    Surface(
-        modifier = modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
+    DetailsCommonContainer(
+        onBackClicked = onBackClicked,
+        modifier = modifier,
+        actionData = NavigationTopBarActionData(
+            contentDescription = "Call",
+            iconResId = R.drawable.ic_call,
+            onActionClicked = { onCallClicked(employee.phone) }
+        )
     ) {
-        Column(modifier = Modifier.systemBarsPadding()) {
-            NavigationTopBarView(
-                onNavigationClicked = onBackClicked,
-                actionData = NavigationTopBarActionData(
-                    contentDescription = "Call",
-                    iconResId = R.drawable.ic_call,
-                    onActionClicked = { onCallClicked(employee.phone) }
-                )
-            )
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                item {
-                    EmployeeHeader(employee, onCallClicked)
-                    //todo bottomsheet
-                    EmployeeInfo(employee)
-                }
-            }
-        }
+        EmployeeHeader(employee, onCallClicked)
+        //todo bottomsheet
+        EmployeeInfo(employee, onProjectClicked)
     }
 }
 
@@ -112,7 +98,7 @@ private fun EmployeeHeader(employee: Employee, onCallClicked: (String) -> Unit) 
 
 @ExperimentalMaterialApi
 @Composable
-private fun EmployeeInfo(employee: Employee) {
+private fun EmployeeInfo(employee: Employee, onProjectClicked: (String) -> Unit) {
     Surface(
         modifier = Modifier
             .padding(top = 40.dp)
@@ -131,7 +117,8 @@ private fun EmployeeInfo(employee: Employee) {
             AboutEmployee(employee)
             AboutProjects(
                 employee = employee,
-                project = Projects.projects.firstOrNull { it.id == employee.projectId }
+                project = Projects.projects.firstOrNull { it.id == employee.projectId },
+                onProjectClicked = onProjectClicked
             )
         }
     }
@@ -208,10 +195,14 @@ private fun AboutEmployee(employee: Employee) {
 
 @ExperimentalMaterialApi
 @Composable
-private fun AboutProjects(employee: Employee, project: Project?) {
+private fun AboutProjects(
+    employee: Employee,
+    project: Project?,
+    onProjectClicked: (String) -> Unit
+) {
     project?.also {
         Card(
-            onClick = { /* todo go to project */ },
+            onClick = { onProjectClicked(it.id) },
             modifier = Modifier
                 .padding(top = 26.dp)
                 .fillMaxWidth()
@@ -316,13 +307,14 @@ private fun ConstraintLayoutScope.EmployeeValue(
 @Preview(showBackground = true, device = Devices.PIXEL)
 @Preview(showBackground = true, device = Devices.PIXEL, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun DepartmentScreenPreview() {
+private fun EmployeeDetailsPreview() {
     ComposeDepartmentTheme {
         Surface {
             EmployeeDetailsScreen(
                 employee = Employees.employees.last(),
                 onBackClicked = {},
-                onCallClicked = {}
+                onCallClicked = {},
+                onProjectClicked = {}
             )
         }
     }

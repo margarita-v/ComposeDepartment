@@ -13,6 +13,7 @@ import com.example.composedepartment.interactor.Projects
 import com.example.composedepartment.ui.base.AppNavigation
 import com.example.composedepartment.ui.department.DepartmentScreen
 import com.example.composedepartment.ui.department.details.EmployeeDetailsScreen
+import com.example.composedepartment.ui.department.details.ProjectDetailsScreen
 import com.example.composedepartment.ui.utils.goToPhoneSystemApp
 
 //todo animate navigations
@@ -23,6 +24,13 @@ fun MainScreen(
     onDarkThemeToggle: (Boolean) -> Unit = {}
 ) {
     val context = LocalContext.current
+    val onProjectClicked: (String) -> Unit = { projectId: String ->
+        navController.navigate(
+            AppNavigation.ProjectDetailsScreen.routeWithArguments(
+                projectId
+            )
+        )
+    }
     NavHost(navController, startDestination = AppNavigation.SplashNavScreen.route) {
         composable(AppNavigation.SplashNavScreen.route) {
             SplashScreen(
@@ -44,7 +52,8 @@ fun MainScreen(
                             employeeId
                         )
                     )
-                }
+                },
+                onProjectClicked = onProjectClicked
             )
         }
         with(AppNavigation.EmployeeDetailsScreen) {
@@ -62,7 +71,27 @@ fun MainScreen(
                             it.id == bundle.getString(argument0)!!
                         },
                         onBackClicked = { navController.popBackStack() },
-                        onCallClicked = { goToPhoneSystemApp(context = context, phone = it) }
+                        onCallClicked = { goToPhoneSystemApp(context = context, phone = it) },
+                        onProjectClicked = onProjectClicked
+                    )
+                }
+            }
+        }
+        with(AppNavigation.ProjectDetailsScreen) {
+            composable(
+                route = route,
+                arguments = listOf(
+                    navArgument(argument0) {
+                        type = NavType.StringType
+                    }
+                )
+            ) { backStackEntry ->
+                backStackEntry.arguments?.let { bundle ->
+                    ProjectDetailsScreen(
+                        project = Projects.projects.first {
+                            it.id == bundle.getString(argument0)!!
+                        },
+                        onBackClicked = { navController.popBackStack() }
                     )
                 }
             }

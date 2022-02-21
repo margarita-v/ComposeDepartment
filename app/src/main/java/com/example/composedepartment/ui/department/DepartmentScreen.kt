@@ -23,7 +23,8 @@ fun DepartmentScreen(
     projects: List<Project> = listOf(),
     onSearchClick: () -> Unit = {},
     onDarkThemeToggle: (Boolean) -> Unit = {},
-    onEmployeeClick: (String) -> Unit = {}
+    onEmployeeClick: (String) -> Unit = {},
+    onProjectClicked: (String) -> Unit = {}
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -35,7 +36,8 @@ fun DepartmentScreen(
                 employees = employees,
                 projects = projects,
                 onDarkThemeToggle = onDarkThemeToggle,
-                onEmployeeClicked = onEmployeeClick
+                onEmployeeClicked = onEmployeeClick,
+                onProjectClicked = onProjectClicked
             )
         }
     }
