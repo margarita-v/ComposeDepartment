@@ -32,7 +32,7 @@ fun NavigationTopBarView(
                 .padding(top = 8.dp, start = 16.dp, end = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            NavigationButton(contentDescription = "Back", icon = R.drawable.ic_back) {
+            NavigationButton(contentDescription = "Back", icon = R.drawable.ic_arrow_left) {
                 onNavigationClicked()
             }
             actionData?.also {

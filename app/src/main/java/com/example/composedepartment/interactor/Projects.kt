@@ -8,10 +8,11 @@ import com.example.composedepartment.domain.Project
 object Projects {
     private const val description = "Такое понимание ситуации восходит\n" +
             "к Эл Райс, при этом BTL транслирует конструктивный медиамикс, отвоевывая свою долю рынка."
-    val leads = Employees.employees.take(3)
+    val leads: List<Employee> = Employees.employees.take(3)
 
     val projects = listOf(
         Project(
+            id = "1",
             name = "Название",
             description = description,
             color = EntityColor.ORANGE,
@@ -20,6 +21,7 @@ object Projects {
             days = 4
         ),
         Project(
+            id = "2",
             name = "Второй проект",
             description = description,
             color = EntityColor.BLUE,
@@ -28,6 +30,7 @@ object Projects {
             days = 5
         ),
         Project(
+            id = "3",
             name = "Очень длинное название проекта на две строки",
             description = description,
             color = EntityColor.GREEN,

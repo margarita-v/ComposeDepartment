@@ -20,5 +20,9 @@
     <string name="employee_no_experience">нет</string>
     <string name="employee_year_short">%d г.</string>
     <string name="employee_month_short">%d мес.</string>
+    <string name="employee_project_description">Текущий проект</string>
+    <string name="employee_experience_male">Участвовал\u00A0</string>
+    <string name="employee_experience_female">Участвовала\u00A0</string>
+    <string name="employee_skills_title">Навыки</string>
     <!--endregion EmployeeDetailsScreen -->
 </resources>
