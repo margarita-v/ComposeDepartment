@@ -4,20 +4,22 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
-import androidx.navigation.compose.rememberNavController
 import com.example.composedepartment.ui.MainScreen
 import com.example.composedepartment.ui.base.theme.BlackBackground
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 import com.google.accompanist.insets.ProvideWindowInsets
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 
 val LocalDarkThemeEnabled = compositionLocalOf { false }
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -53,7 +55,7 @@ class MainActivity : ComponentActivity() {
                 ProvideWindowInsets {
                     CompositionLocalProvider(LocalDarkThemeEnabled provides isDarkTheme) {
                         MainScreen(
-                            rememberNavController(),
+                            rememberAnimatedNavController(),
                             onDarkThemeToggle = { viewModel.toggleDarkTheme(it) }
                         )
                     }

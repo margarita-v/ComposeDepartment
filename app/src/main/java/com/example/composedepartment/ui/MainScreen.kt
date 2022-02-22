@@ -1,23 +1,23 @@
 package com.example.composedepartment.ui
 
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
+import androidx.navigation.*
 import com.example.composedepartment.interactor.Employees
 import com.example.composedepartment.interactor.Projects
 import com.example.composedepartment.ui.base.AppNavigation
 import com.example.composedepartment.ui.department.DepartmentScreen
-import com.example.composedepartment.ui.department.search.SearchScreen
 import com.example.composedepartment.ui.department.details.EmployeeDetailsScreen
 import com.example.composedepartment.ui.department.details.ProjectDetailsScreen
+import com.example.composedepartment.ui.department.search.SearchScreen
 import com.example.composedepartment.ui.utils.goToPhoneSystemApp
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
 
-//todo animate navigations
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
 fun MainScreen(
@@ -32,8 +32,8 @@ fun MainScreen(
             )
         )
     }
-    NavHost(navController, startDestination = AppNavigation.SplashNavScreen.route) {
-        composable(AppNavigation.SplashNavScreen.route) {
+    AnimatedNavHost(navController, startDestination = AppNavigation.SplashNavScreen.route) {
+        composableAnimation(AppNavigation.SplashNavScreen.route) {
             SplashScreen(
                 onFinished = {
                     navController.navigate(AppNavigation.MainNavScreen.route) {
@@ -42,7 +42,7 @@ fun MainScreen(
                 }
             )
         }
-        composable(AppNavigation.MainNavScreen.route) {
+        composableAnimation(AppNavigation.MainNavScreen.route) {
             DepartmentScreen(
                 employees = Employees.employees,
                 projects = Projects.projects,
@@ -61,7 +61,7 @@ fun MainScreen(
             )
         }
         with(AppNavigation.EmployeeDetailsNavScreen) {
-            composable(
+            composableAnimation(
                 route = route,
                 arguments = listOf(
                     navArgument(argument0) {
@@ -82,7 +82,7 @@ fun MainScreen(
             }
         }
         with(AppNavigation.ProjectDetailsNavScreen) {
-            composable(
+            composableAnimation(
                 route = route,
                 arguments = listOf(
                     navArgument(argument0) {
@@ -100,8 +100,52 @@ fun MainScreen(
                 }
             }
         }
-        composable(AppNavigation.SearchNavScreen.route) {
+        composableAnimation(AppNavigation.SearchNavScreen.route) {
             SearchScreen(onProjectClick = onProjectClicked)
         }
+    }
+}
+
+private const val NAVIGATION_ANIMATION_DURATION_MS = 500
+
+@ExperimentalAnimationApi
+private fun NavGraphBuilder.composableAnimation(
+    route: String,
+    arguments: List<NamedNavArgument> = emptyList(),
+    enterTransition: AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition? = {
+        slideIntoContainer(
+            AnimatedContentScope.SlideDirection.Left,
+            animationSpec = tween(NAVIGATION_ANIMATION_DURATION_MS)
+        )
+    },
+    exitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)? = {
+        slideOutOfContainer(
+            AnimatedContentScope.SlideDirection.Left,
+            animationSpec = tween(NAVIGATION_ANIMATION_DURATION_MS)
+        )
+    },
+    popEnterTransition: AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition? = {
+        slideIntoContainer(
+            AnimatedContentScope.SlideDirection.Right,
+            animationSpec = tween(NAVIGATION_ANIMATION_DURATION_MS)
+        )
+    },
+    popExitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)? = {
+        slideOutOfContainer(
+            AnimatedContentScope.SlideDirection.Right,
+            animationSpec = tween(NAVIGATION_ANIMATION_DURATION_MS)
+        )
+    },
+    content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit
+) {
+    composable(
+        route = route,
+        arguments = arguments,
+        enterTransition = enterTransition,
+        exitTransition = exitTransition,
+        popEnterTransition = popEnterTransition,
+        popExitTransition = popExitTransition,
+    ) { navBackStackEntry ->
+        content.invoke(this, navBackStackEntry)
     }
 }
