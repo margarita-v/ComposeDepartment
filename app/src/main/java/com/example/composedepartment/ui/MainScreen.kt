@@ -12,6 +12,7 @@ import com.example.composedepartment.interactor.Employees
 import com.example.composedepartment.interactor.Projects
 import com.example.composedepartment.ui.base.AppNavigation
 import com.example.composedepartment.ui.department.DepartmentScreen
+import com.example.composedepartment.ui.department.search.SearchScreen
 import com.example.composedepartment.ui.department.details.EmployeeDetailsScreen
 import com.example.composedepartment.ui.department.details.ProjectDetailsScreen
 import com.example.composedepartment.ui.utils.goToPhoneSystemApp
@@ -26,7 +27,7 @@ fun MainScreen(
     val context = LocalContext.current
     val onProjectClicked: (String) -> Unit = { projectId: String ->
         navController.navigate(
-            AppNavigation.ProjectDetailsScreen.routeWithArguments(
+            AppNavigation.ProjectDetailsNavScreen.routeWithArguments(
                 projectId
             )
         )
@@ -46,9 +47,12 @@ fun MainScreen(
                 employees = Employees.employees,
                 projects = Projects.projects,
                 onDarkThemeToggle = onDarkThemeToggle,
+                onSearchClick = {
+                    navController.navigate(AppNavigation.SearchNavScreen.route)
+                },
                 onEmployeeClick = { employeeId ->
                     navController.navigate(
-                        AppNavigation.EmployeeDetailsScreen.routeWithArguments(
+                        AppNavigation.EmployeeDetailsNavScreen.routeWithArguments(
                             employeeId
                         )
                     )
@@ -56,7 +60,7 @@ fun MainScreen(
                 onProjectClicked = onProjectClicked
             )
         }
-        with(AppNavigation.EmployeeDetailsScreen) {
+        with(AppNavigation.EmployeeDetailsNavScreen) {
             composable(
                 route = route,
                 arguments = listOf(
@@ -77,7 +81,7 @@ fun MainScreen(
                 }
             }
         }
-        with(AppNavigation.ProjectDetailsScreen) {
+        with(AppNavigation.ProjectDetailsNavScreen) {
             composable(
                 route = route,
                 arguments = listOf(
@@ -95,6 +99,9 @@ fun MainScreen(
                     )
                 }
             }
+        }
+        composable(AppNavigation.SearchNavScreen.route) {
+            SearchScreen(onProjectClick = onProjectClicked)
         }
     }
 }

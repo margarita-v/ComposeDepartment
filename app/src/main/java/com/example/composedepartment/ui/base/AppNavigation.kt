@@ -11,12 +11,15 @@ object AppNavigation {
     val MainNavScreen = object : NavigationRoute {
         override val route: String = "Main"
     }
-    val EmployeeDetailsScreen = object : NavigationRouteArgument1 {
+    val EmployeeDetailsNavScreen = object : NavigationRouteArgument1 {
         override val argument0: String = "employee_id"
         override val route: String = "EmployeeDetails/{$argument0}"
     }
-    val ProjectDetailsScreen = object : NavigationRouteArgument1 {
+    val ProjectDetailsNavScreen = object : NavigationRouteArgument1 {
         override val argument0: String = "project_id"
         override val route: String = "ProjectDetails/{$argument0}"
+    }
+    val SearchNavScreen = object : NavigationRoute {
+        override val route: String = "Search"
     }
 }

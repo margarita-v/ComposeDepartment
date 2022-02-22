@@ -30,7 +30,7 @@ import com.example.composedepartment.interactor.Employees
 import com.example.composedepartment.interactor.Projects
 import com.example.composedepartment.ui.base.components.NavigationTopBarActionData
 import com.example.composedepartment.ui.base.components.ProjectFirstLetterView
-import com.example.composedepartment.ui.base.components.SkillsView
+import com.example.composedepartment.ui.base.components.ColoredEntityView
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
 import com.example.composedepartment.ui.department.details.common.DetailsCommonContainer
@@ -173,7 +173,7 @@ private fun AboutEmployee(employee: Employee) {
             barrier = titlesBarrier
         )
         EmployeeValue(
-            text = employee.department,
+            text = employee.department.name,
             selfRef = departmentValue,
             centerRef = departmentTitle,
             barrier = titlesBarrier,
@@ -267,8 +267,11 @@ private fun AboutProjects(
             ),
             modifier = Modifier.padding(top = 32.dp)
         )
-        SkillsView(
-            skills = employee.skills,
+        ColoredEntityView(
+            data = employee.skills,
+            spacing = 8.dp,
+            verticalTextPadding = 4.dp,
+            horizontalTextPadding = 12.dp,
             modifier = Modifier.padding(top = 16.dp),
             textStyle = MaterialTheme.typography.caption
         )

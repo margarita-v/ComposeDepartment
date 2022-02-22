@@ -15,26 +15,30 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.composedepartment.domain.Skill
+import com.example.composedepartment.domain.ColoredEntity
 import com.example.composedepartment.interactor.Employees
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 import com.example.composedepartment.ui.utils.toColor
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
-fun SkillsView(
-    skills: List<Skill>,
+fun ColoredEntityView(
+    data: List<ColoredEntity>,
     modifier: Modifier = Modifier,
+    spacing: Dp = 4.dp,
+    verticalTextPadding: Dp = 2.dp,
+    horizontalTextPadding: Dp = 8.dp,
     textStyle: TextStyle = MaterialTheme.typography.overline
 ) {
     FlowRow(
         modifier = modifier,
-        mainAxisSpacing = 4.dp,
-        crossAxisSpacing = 4.dp
+        mainAxisSpacing = spacing,
+        crossAxisSpacing = spacing
     ) {
-        skills.forEach { skill ->
-            val skillColor = skill.color.toColor()
+        data.forEach { item ->
+            val skillColor = item.color.toColor()
             Box(
                 modifier = Modifier
                     .wrapContentHeight()
@@ -43,10 +47,10 @@ fun SkillsView(
             ) {
                 Text(
                     modifier = Modifier.padding(
-                        vertical = 2.dp,
-                        horizontal = 8.dp
+                        vertical = verticalTextPadding,
+                        horizontal = horizontalTextPadding
                     ),
-                    text = skill.name,
+                    text = item.name,
                     style = textStyle.copy(color = skillColor)
                 )
             }
@@ -57,11 +61,11 @@ fun SkillsView(
 @Preview(showBackground = true, device = Devices.PIXEL)
 @Preview(showBackground = true, device = Devices.PIXEL, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun SkillsPreview() {
+private fun ColoredEntityPreview() {
     ComposeDepartmentTheme {
         Surface {
-            SkillsView(
-                skills = Employees.employees.first().skills
+            ColoredEntityView(
+                data = Employees.employees.first().skills
             )
         }
     }

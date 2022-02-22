@@ -11,4 +11,6 @@ data class Project(
     val leads: List<Employee>,
     val members: List<Employee>,
     val days: Int
-)
+) {
+    val peopleCount: Int = leads.size + members.size
+}

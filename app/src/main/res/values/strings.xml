@@ -31,4 +31,10 @@
     <string name="project_all">Всего\u00A0</string>
     <string name="project_days">Время жизни\nпроекта (счетчик)</string>
     <!--region ProjectDetailsScreen -->
+    <!--region SearchScreen -->
+    <string name="search_projects">Проекты</string>
+    <string name="search_departments">Отделы</string>
+    <string name="search_skills">Навыки</string>
+    <string name="search_title">Поиск</string>
+    <!--region SearchScreen -->
 </resources>

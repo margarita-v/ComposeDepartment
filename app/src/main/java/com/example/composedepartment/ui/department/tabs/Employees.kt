@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.example.composedepartment.domain.Employee
-import com.example.composedepartment.ui.base.components.SkillsView
+import com.example.composedepartment.ui.base.components.ColoredEntityView
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 
 @ExperimentalMaterialApi
@@ -61,8 +61,8 @@ internal fun Employees(
                             text = employee.job,
                             style = MaterialTheme.typography.subtitle2
                         )
-                        SkillsView(
-                            skills = employee.skills,
+                        ColoredEntityView(
+                            data = employee.skills,
                             modifier = Modifier.constrainAs(skills) {
                                 top.linkTo(job.bottom, margin = 8.dp)
                                 start.linkTo(photo.end, margin = 16.dp)

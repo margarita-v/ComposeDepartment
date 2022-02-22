@@ -98,7 +98,7 @@ private fun ProjectInfo(project: Project) {
                 text = stringResource(id = R.string.project_all) +
                         pluralResource(
                             resId = R.plurals.members,
-                            quantity = project.members.size + project.leads.size,
+                            quantity = project.peopleCount,
                             project.members.size
                         ),
                 style = MaterialTheme.typography.subtitle2,
