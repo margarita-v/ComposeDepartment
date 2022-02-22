@@ -1,20 +1,25 @@
 package com.example.composedepartment.ui.department.details
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import com.example.composedepartment.R
 import com.example.composedepartment.domain.Project
 import com.example.composedepartment.interactor.Projects
@@ -28,6 +33,7 @@ import com.example.composedepartment.ui.department.details.common.DetailsCommonI
 import com.example.composedepartment.ui.department.details.common.DetailsCommonTitle
 import com.example.composedepartment.ui.utils.pluralResource
 
+//todo animation on scroll
 @Composable
 fun ProjectDetailsScreen(
     project: Project,
@@ -76,7 +82,12 @@ private fun ProjectInfo(project: Project) {
             titleRes = R.string.project_team,
             modifier = Modifier.padding(top = 32.dp)
         )
-        Row(modifier = Modifier.padding(top = 16.dp)) {
+        Row(
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .clickable {} // route to team
+        ) {
             AvatarsView(
                 photos = project.leads.map { it.photo },
                 align = AvatarsAlign.Start,
@@ -124,9 +135,56 @@ private fun ProjectInfo(project: Project) {
 
 @Composable
 private fun ProjectDaysCounter(days: Int) {
-    Column {
-        Text(days.toString())
-        Text(pluralResource(resId = R.plurals.days, quantity = days, days))
+    ConstraintLayout(modifier = Modifier.defaultMinSize(minWidth = 52.dp)) {
+        val (count, description) = createRefs()
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
+                .background(MaterialTheme.colors.background)
+                .constrainAs(count) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    width = Dimension.fillToConstraints
+                }
+        ) {
+            Text(
+                text = days.toString(),
+                style = MaterialTheme.typography.h4.copy(
+                    color = MaterialThemeCustom.colors.orange,
+                    fontWeight = FontWeight.Bold
+                ),
+                modifier = Modifier
+                    .padding(vertical = 3.dp)
+                    .align(alignment = Alignment.Center)
+            )
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .border(
+                    width = 1.dp,
+                    color = MaterialTheme.colors.background,
+                    shape = RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp)
+                )
+                .constrainAs(description) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    width = Dimension.fillToConstraints
+                    top.linkTo(count.bottom)
+                }
+        ) {
+            Text(
+                text = pluralResource(resId = R.plurals.days, quantity = days, days),
+                style = MaterialTheme.typography.subtitle2.copy(
+                    color = MaterialThemeCustom.colors.orange
+                ),
+                maxLines = 1,
+                modifier = Modifier
+                    .padding(vertical = 5.dp)
+                    .align(alignment = Alignment.Center),
+            )
+        }
     }
 }
 
