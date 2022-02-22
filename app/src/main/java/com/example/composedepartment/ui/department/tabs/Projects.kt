@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.composedepartment.R
 import com.example.composedepartment.domain.Project
+import com.example.composedepartment.ui.base.components.AvatarsAlign
 import com.example.composedepartment.ui.base.components.AvatarsView
 import com.example.composedepartment.ui.base.components.ProjectFirstLetterView
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
@@ -49,6 +50,7 @@ internal fun Projects(
                         )
                         AvatarsView(
                             photos = project.leads.map { it.photo },
+                            align = AvatarsAlign.End,
                             modifier = Modifier.constrainAs(leads) {
                                 end.linkTo(parent.end)
                             }

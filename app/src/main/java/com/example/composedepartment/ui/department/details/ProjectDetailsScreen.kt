@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.example.composedepartment.R
 import com.example.composedepartment.domain.Project
 import com.example.composedepartment.interactor.Projects
+import com.example.composedepartment.ui.base.components.AvatarsAlign
 import com.example.composedepartment.ui.base.components.AvatarsView
 import com.example.composedepartment.ui.base.components.ProjectFirstLetterView
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
@@ -76,16 +77,17 @@ private fun ProjectInfo(project: Project) {
             modifier = Modifier.padding(top = 32.dp)
         )
         Row(modifier = Modifier.padding(top = 16.dp)) {
-            //todo fix align; render rest count
             AvatarsView(
                 photos = project.leads.map { it.photo },
+                align = AvatarsAlign.Start,
+                restCount = project.members.size,
                 size = 40.dp
             )
             Text(
                 text = stringResource(id = R.string.project_all) +
                         pluralResource(
                             resId = R.plurals.members,
-                            quantity = project.members.size,
+                            quantity = project.members.size + project.leads.size,
                             project.members.size
                         ),
                 style = MaterialTheme.typography.subtitle2,
