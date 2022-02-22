@@ -267,8 +267,11 @@ private fun AboutProjects(
             ),
             modifier = Modifier.padding(top = 32.dp)
         )
-        //todo increase style
-        SkillsView(skills = employee.skills, modifier = Modifier.padding(top = 16.dp))
+        SkillsView(
+            skills = employee.skills,
+            modifier = Modifier.padding(top = 16.dp),
+            textStyle = MaterialTheme.typography.caption
+        )
     }
 }
 

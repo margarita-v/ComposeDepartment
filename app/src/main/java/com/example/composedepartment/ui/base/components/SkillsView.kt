@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,7 +23,11 @@ import com.example.composedepartment.ui.utils.toColor
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
-fun SkillsView(skills: List<Skill>, modifier: Modifier = Modifier) {
+fun SkillsView(
+    skills: List<Skill>,
+    modifier: Modifier = Modifier,
+    textStyle: TextStyle = MaterialTheme.typography.overline
+) {
     FlowRow(
         modifier = modifier,
         mainAxisSpacing = 4.dp,
@@ -42,9 +47,7 @@ fun SkillsView(skills: List<Skill>, modifier: Modifier = Modifier) {
                         horizontal = 8.dp
                     ),
                     text = skill.name,
-                    style = MaterialTheme.typography.overline.copy(
-                        color = skillColor
-                    )
+                    style = textStyle.copy(color = skillColor)
                 )
             }
         }
