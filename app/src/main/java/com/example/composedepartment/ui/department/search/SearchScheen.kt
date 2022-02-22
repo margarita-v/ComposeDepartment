@@ -2,16 +2,21 @@ package com.example.composedepartment.ui.department.search
 
 import android.content.res.Configuration
 import androidx.annotation.StringRes
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,6 +45,7 @@ fun SearchScreen(
         color = MaterialTheme.colors.background
     ) {
         Column(modifier = Modifier.systemBarsPadding()) {
+            SearchField(viewModel = viewModel)
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 item {
                     if (projects.isNotEmpty()) {
@@ -54,10 +60,69 @@ fun SearchScreen(
                         Title(titleResId = R.string.search_skills)
                         Entities(data = skills)
                     }
+                    if (projects.isEmpty() && departments.isEmpty() && skills.isEmpty()) {
+                        Title(titleResId = R.string.search_not_found)
+                    }
                 }
             }
         }
     }
+}
+
+@Composable
+private fun SearchField(viewModel: SearchViewModel) {
+    val search by viewModel.search.collectAsState()
+
+    Row(modifier = Modifier.padding(top = 8.dp, start = 20.dp, end = 20.dp)) {
+        SearchTextField(viewModel = viewModel, modifier = Modifier.weight(1f))
+        AnimatedVisibility(visible = search.isNotEmpty()) {
+            IconButton(
+                onClick = { viewModel.search("") },
+                modifier = Modifier
+                    .align(alignment = Alignment.CenterVertically)
+                    .padding(start = 8.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_close),
+                    contentDescription = "Clear",
+                    tint = MaterialTheme.colors.primary
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SearchTextField(viewModel: SearchViewModel, modifier: Modifier = Modifier) {
+    val search by viewModel.search.collectAsState()
+    OutlinedTextField(
+        value = search,
+        onValueChange = { viewModel.search(it) },
+        modifier = modifier,
+        singleLine = true,
+        shape = RoundedCornerShape(8.dp),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            backgroundColor = MaterialTheme.colors.surface,
+            focusedBorderColor = Color.Transparent,
+            unfocusedBorderColor = Color.Transparent
+        ),
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Search
+        ),
+        leadingIcon = {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_search),
+                contentDescription = "Search",
+                tint = MaterialTheme.colors.onBackground
+            )
+        },
+        placeholder = {
+            Text(
+                text = stringResource(id = R.string.search_title),
+                style = MaterialTheme.typography.subtitle2
+            )
+        }
+    )
 }
 
 @Composable

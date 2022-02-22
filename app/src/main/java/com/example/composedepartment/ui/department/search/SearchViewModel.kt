@@ -19,4 +19,21 @@ class SearchViewModel : ViewModel() {
 
     private val _skills = MutableStateFlow(Search.skills)
     val skills: StateFlow<List<Skill>> get() = _skills.asStateFlow()
+
+    private val _search = MutableStateFlow("")
+    val search: StateFlow<String> get() = _search.asStateFlow()
+
+    fun search(input: String) {
+        _search.value = input
+        // restore cache
+        if (input.isEmpty()) {
+            _projects.value = Search.projects
+            _departments.value = Search.departments
+            _skills.value = Search.skills
+        } else {
+            _projects.value = _projects.value.filter { it.name.contains(input) }
+            _departments.value = _departments.value.filter { it.name.contains(input) }
+            _skills.value = _skills.value.filter { it.name.contains(input) }
+        }
+    }
 }
