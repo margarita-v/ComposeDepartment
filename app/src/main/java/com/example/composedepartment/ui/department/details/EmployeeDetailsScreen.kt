@@ -6,10 +6,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -28,10 +26,10 @@ import com.example.composedepartment.interactor.Employees
 import com.example.composedepartment.interactor.Projects
 import com.example.composedepartment.ui.base.components.ColoredEntityView
 import com.example.composedepartment.ui.base.components.NavigationTopBarActionData
-import com.example.composedepartment.ui.base.components.NavigationTopBarView
 import com.example.composedepartment.ui.base.components.ProjectFirstLetterView
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
+import com.example.composedepartment.ui.department.details.common.DetailsCommonContainer
 import com.example.composedepartment.ui.department.details.common.DetailsCommonTitle
 import com.example.composedepartment.ui.utils.pluralResource
 
@@ -44,43 +42,21 @@ fun EmployeeDetailsScreen(
     onCallClicked: (String) -> Unit,
     onProjectClicked: (String) -> Unit
 ) {
-    val scaffoldState = rememberBackdropScaffoldState(BackdropValue.Revealed)
-
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
-    ) {
-        BackdropScaffold(
-            modifier = modifier.systemBarsPadding(),
-            scaffoldState = scaffoldState,
-            backLayerBackgroundColor = Color.Unspecified,
-            frontLayerScrimColor = Color.Unspecified,
-            appBar = {
-                NavigationTopBarView(
-                    onNavigationClicked = onBackClicked,
-                    actionData = NavigationTopBarActionData(
-                        contentDescription = "Call",
-                        iconResId = R.drawable.ic_call,
-                        onActionClicked = { onCallClicked(employee.phone) }
-                    )
-                )
-            },
-            backLayerContent = {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 40.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    EmployeeHeader(employee, onCallClicked)
-                }
-            },
-            frontLayerElevation = 10.dp,
-            frontLayerContent = {
-                EmployeeInfo(employee, onProjectClicked)
-            }
-        )
-    }
+    DetailsCommonContainer(
+        onBackClicked = onBackClicked,
+        modifier = modifier,
+        actionData = NavigationTopBarActionData(
+            contentDescription = "Call",
+            iconResId = R.drawable.ic_call,
+            onActionClicked = { onCallClicked(employee.phone) }
+        ),
+        header = {
+            EmployeeHeader(employee, onCallClicked)
+        },
+        info = {
+            EmployeeInfo(employee, onProjectClicked)
+        }
+    )
 }
 
 @Composable

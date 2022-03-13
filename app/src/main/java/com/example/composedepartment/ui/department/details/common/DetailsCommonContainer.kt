@@ -1,43 +1,54 @@
 package com.example.composedepartment.ui.department.details.common
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyItemScope
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.example.composedepartment.ui.base.components.NavigationTopBarActionData
 import com.example.composedepartment.ui.base.components.NavigationTopBarView
 
+@ExperimentalMaterialApi
 @Composable
 internal fun DetailsCommonContainer(
     onBackClicked: () -> Unit,
-    horizontalAlignment: Alignment.Horizontal,
     modifier: Modifier = Modifier,
+    horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
     actionData: NavigationTopBarActionData? = null,
-    content: @Composable LazyItemScope.() -> Unit
+    header: @Composable ColumnScope.() -> Unit,
+    info: @Composable () -> Unit
 ) {
+    val scaffoldState = rememberBackdropScaffoldState(BackdropValue.Revealed)
+
     Surface(
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-        Column(modifier = Modifier.systemBarsPadding()) {
-            NavigationTopBarView(
-                onNavigationClicked = onBackClicked,
-                actionData = actionData
-            )
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = horizontalAlignment
-            ) {
-                item {
-                    content()
+        BackdropScaffold(
+            modifier = modifier.systemBarsPadding(),
+            scaffoldState = scaffoldState,
+            backLayerBackgroundColor = Color.Unspecified,
+            frontLayerScrimColor = Color.Unspecified,
+            appBar = {
+                NavigationTopBarView(
+                    onNavigationClicked = onBackClicked,
+                    actionData = actionData
+                )
+            },
+            backLayerContent = {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 40.dp),
+                    horizontalAlignment = horizontalAlignment
+                ) {
+                    header()
                 }
-            }
-        }
+            },
+            frontLayerElevation = 10.dp,
+            frontLayerContent = { info() }
+        )
     }
 }

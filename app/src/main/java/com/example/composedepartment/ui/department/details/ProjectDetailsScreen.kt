@@ -29,11 +29,10 @@ import com.example.composedepartment.ui.base.components.ProjectFirstLetterView
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
 import com.example.composedepartment.ui.department.details.common.DetailsCommonContainer
-import com.example.composedepartment.ui.department.details.common.DetailsCommonInfo
 import com.example.composedepartment.ui.department.details.common.DetailsCommonTitle
 import com.example.composedepartment.ui.utils.pluralResource
 
-//todo animation on scroll
+@ExperimentalMaterialApi
 @Composable
 fun ProjectDetailsScreen(
     project: Project,
@@ -43,31 +42,40 @@ fun ProjectDetailsScreen(
     DetailsCommonContainer(
         onBackClicked = onBackClicked,
         horizontalAlignment = Alignment.Start,
-        modifier = modifier
-    ) {
-        Column(modifier = Modifier.padding(top = 16.dp, start = 20.dp, end = 20.dp)) {
-            Card(
-                backgroundColor = Color.White,
-                elevation = 10.dp
-            ) {
-                ProjectFirstLetterView(
-                    project = project,
-                    modifier = Modifier.padding(horizontal = 34.dp, vertical = 16.dp)
-                )
-            }
-            Text(
-                text = project.name,
-                style = MaterialTheme.typography.h4,
-                modifier = Modifier.padding(top = 16.dp)
+        modifier = modifier,
+        header = {
+            ProjectHeader(project = project)
+        },
+        info = {
+            ProjectInfo(project = project)
+        }
+    )
+}
+
+@Composable
+private fun ProjectHeader(project: Project) {
+    Column(modifier = Modifier.padding(top = 16.dp, start = 20.dp, end = 20.dp)) {
+        Card(
+            backgroundColor = Color.White,
+            elevation = 10.dp
+        ) {
+            ProjectFirstLetterView(
+                project = project,
+                modifier = Modifier.padding(horizontal = 34.dp, vertical = 16.dp)
             )
         }
-        ProjectInfo(project = project)
+        Text(
+            text = project.name,
+            style = MaterialTheme.typography.h4,
+            modifier = Modifier.padding(top = 16.dp)
+        )
     }
 }
 
 @Composable
 private fun ProjectInfo(project: Project) {
-    DetailsCommonInfo(titleRes = R.string.project_title) {
+    Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 24.dp)) {
+        DetailsCommonTitle(titleRes = R.string.project_title)
         Text(
             text = project.description,
             style = MaterialTheme.typography.subtitle2,
@@ -188,6 +196,7 @@ private fun ProjectDaysCounter(days: Int) {
     }
 }
 
+@ExperimentalMaterialApi
 @Preview(showBackground = true, device = Devices.PIXEL)
 @Preview(showBackground = true, device = Devices.PIXEL, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
