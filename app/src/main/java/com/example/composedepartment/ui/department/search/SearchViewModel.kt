@@ -31,9 +31,19 @@ class SearchViewModel : ViewModel() {
             _departments.value = Search.departments
             _skills.value = Search.skills
         } else {
-            _projects.value = _projects.value.filter { it.name.contains(input) }
-            _departments.value = _departments.value.filter { it.name.contains(input) }
-            _skills.value = _skills.value.filter { it.name.contains(input) }
+            _projects.value = _projects.value.filter {
+                contains(input = input, value = it.name)
+            }
+            _departments.value = _departments.value.filter {
+                contains(input = input, value = it.name)
+            }
+            _skills.value = _skills.value.filter {
+                contains(input = input, value = it.name)
+            }
         }
+    }
+
+    private fun contains(input: String, value: String): Boolean {
+        return value.lowercase().contains(input.lowercase())
     }
 }
