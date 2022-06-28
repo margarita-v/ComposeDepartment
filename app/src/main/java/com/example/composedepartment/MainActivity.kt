@@ -6,13 +6,15 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.*
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import com.example.composedepartment.ui.MainScreen
 import com.example.composedepartment.ui.base.theme.BlackBackground
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,13 +54,11 @@ class MainActivity : ComponentActivity() {
                 )
             }
             ComposeDepartmentTheme(darkTheme = isDarkTheme) {
-                ProvideWindowInsets {
-                    CompositionLocalProvider(LocalDarkThemeEnabled provides isDarkTheme) {
-                        MainScreen(
-                            rememberAnimatedNavController(),
-                            onDarkThemeToggle = { viewModel.toggleDarkTheme(it) }
-                        )
-                    }
+                CompositionLocalProvider(LocalDarkThemeEnabled provides isDarkTheme) {
+                    MainScreen(
+                        rememberAnimatedNavController(),
+                        onDarkThemeToggle = { viewModel.toggleDarkTheme(it) }
+                    )
                 }
             }
         }
