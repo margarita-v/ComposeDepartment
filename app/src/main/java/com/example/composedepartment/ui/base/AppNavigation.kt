@@ -22,4 +22,7 @@ object AppNavigation {
     val SearchNavScreen = object : NavigationRoute {
         override val route: String = "Search"
     }
+    val AnimationsNavScreen = object : NavigationRoute {
+        override val route: String = "Animations"
+    }
 }
