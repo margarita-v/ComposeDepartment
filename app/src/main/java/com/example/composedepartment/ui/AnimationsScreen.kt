@@ -24,7 +24,7 @@ import androidx.constraintlayout.compose.*
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 import com.example.composedepartment.ui.base.theme.PinkDarker
 import com.example.composedepartment.ui.base.theme.PinkLighter
-import kotlinx.coroutines.launch
+import ru.surfstudio.compose.modifier.ifTrue
 
 private const val TOP_CONTAINER_ID = "top"
 private const val BOTTOM_CONTAINER_ID = "bottom"
@@ -61,13 +61,16 @@ fun AnimationsScreen() {
                 )
             )
     ) {
+        val state = swipingState.currentValue
+        val animate = state == SwipingStates.COLLAPSED && animateMotionLayoutProgress == 1f
+
         TopContainer(
             animateMotionLayoutProgress = animateMotionLayoutProgress,
-            swipingState = swipingState.currentValue
+            animate = animate
         )
         BottomContainer(
             animateMotionLayoutProgress = animateMotionLayoutProgress,
-            swipingState = swipingState.currentValue
+            animate = animate
         )
     }
 }
@@ -78,16 +81,28 @@ private enum class SwipingStates {
 }
 
 @Composable
-private fun TopContainer(animateMotionLayoutProgress: Float, swipingState: SwipingStates) {
-    val rotationAnimatable = remember { Animatable(START_ANIMATION_VALUE, Float.VectorConverter) }
-    val offsetAnimatable = remember { Animatable(START_ANIMATION_VALUE, Float.VectorConverter) }
+private fun TopContainer(animateMotionLayoutProgress: Float, animate: Boolean) {
+    val transition = updateTransition(animate, label = "top animations")
 
-    TopContainerAnimations(
-        rotationAnimatable = rotationAnimatable,
-        offsetAnimatable = offsetAnimatable,
-        animateMotionLayoutProgress = animateMotionLayoutProgress,
-        swipingState = swipingState
-    )
+    val rotation by transition.animateFloat(
+        transitionSpec = {
+            tween(
+                durationMillis = 2500,
+                easing = LinearOutSlowInEasing
+            )
+        },
+        label = "top rotation animation"
+    ) { if (it) END_ANIMATION_VALUE else START_ANIMATION_VALUE }
+
+    val offset by transition.animateFloat(
+        transitionSpec = {
+            tween(
+                durationMillis = 2500,
+                easing = LinearEasing
+            )
+        },
+        label = "top offset animation"
+    ) { if (it) END_ANIMATION_VALUE else START_ANIMATION_VALUE }
 
     Box(
         modifier = Modifier
@@ -103,8 +118,8 @@ private fun TopContainer(animateMotionLayoutProgress: Float, swipingState: Swipi
                 imageVector = Icons.Default.Build,
                 contentDescription = "build",
                 modifier = Modifier
+                    .ifTrue(animate) { Modifier.rotate(rotation) }
                     .size(100.dp)
-                    .rotate(rotationAnimatable.value)
                     .alpha(alpha = animateMotionLayoutProgress)
                     .scale(scale = animateMotionLayoutProgress),
                 tint = Color.White
@@ -121,7 +136,7 @@ private fun TopContainer(animateMotionLayoutProgress: Float, swipingState: Swipi
                     .size(100.dp)
                     .alpha(alpha = animateMotionLayoutProgress)
                     .scale(scale = animateMotionLayoutProgress)
-                    .offset(x = offsetAnimatable.value.dp),
+                    .offset(x = if (animate) offset.dp else 0.dp),
                 tint = Color.White
             )
         }
@@ -129,49 +144,7 @@ private fun TopContainer(animateMotionLayoutProgress: Float, swipingState: Swipi
 }
 
 @Composable
-private fun TopContainerAnimations(
-    rotationAnimatable: Animatable<Float, AnimationVector1D>,
-    offsetAnimatable: Animatable<Float, AnimationVector1D>,
-    animateMotionLayoutProgress: Float,
-    swipingState: SwipingStates
-) {
-    LaunchedEffect(swipingState, animateMotionLayoutProgress) {
-        when {
-            swipingState == SwipingStates.COLLAPSED && animateMotionLayoutProgress == 1f -> {
-                rotationAnimatable.animateTo(
-                    targetValue = END_ANIMATION_VALUE,
-                    animationSpec = tween(
-                        durationMillis = 2500,
-                        easing = LinearOutSlowInEasing
-                    )
-                )
-                offsetAnimatable.animateTo(
-                    targetValue = END_ANIMATION_VALUE,
-                    animationSpec = tween(
-                        durationMillis = 2500,
-                        easing = LinearEasing
-                    )
-                )
-            }
-            swipingState == SwipingStates.EXPANDED && animateMotionLayoutProgress == 0f -> {
-                rotationAnimatable.snapTo(START_ANIMATION_VALUE)
-                offsetAnimatable.snapTo(START_ANIMATION_VALUE)
-            }
-        }
-    }
-    val scope = rememberCoroutineScope()
-    DisposableEffect(Unit) {
-        onDispose {
-            scope.launch {
-                rotationAnimatable.stop()
-                offsetAnimatable.stop()
-            }
-        }
-    }
-}
-
-@Composable
-private fun BottomContainer(animateMotionLayoutProgress: Float, swipingState: SwipingStates) {
+private fun BottomContainer(animateMotionLayoutProgress: Float, animate: Boolean) {
     val transition = rememberInfiniteTransition()
     val offsetAnimatable by transition.animateFloat(
         initialValue = -10f,
@@ -184,7 +157,6 @@ private fun BottomContainer(animateMotionLayoutProgress: Float, swipingState: Sw
             repeatMode = RepeatMode.Reverse
         )
     )
-    val animateOffset = swipingState == SwipingStates.COLLAPSED && animateMotionLayoutProgress == 1f
 
     Box(
         modifier = Modifier
@@ -223,8 +195,8 @@ private fun BottomContainer(animateMotionLayoutProgress: Float, swipingState: Sw
                 .alpha(alpha = animateMotionLayoutProgress)
                 .scale(scale = animateMotionLayoutProgress)
                 .offset(
-                    x = if (animateOffset) -offsetAnimatable.dp else 0.dp,
-                    y = if (animateOffset) -offsetAnimatable.dp else 0.dp,
+                    x = if (animate) -offsetAnimatable.dp else 0.dp,
+                    y = if (animate) -offsetAnimatable.dp else 0.dp,
                 ),
             tint = Color.White
         )

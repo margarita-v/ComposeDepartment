@@ -71,6 +71,7 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.4.0'
     implementation "androidx.navigation:navigation-compose:2.5.0-rc02"
     implementation "ru.surfstudio.compose:routing:0.0.21"
+    implementation "ru.surfstudio.compose:modifier-ext:0.0.15"
 
     // accompanist
     implementation "com.google.accompanist:accompanist-insets:$accompanist_version"
