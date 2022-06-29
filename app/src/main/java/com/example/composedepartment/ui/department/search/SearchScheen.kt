@@ -28,6 +28,7 @@ import com.example.composedepartment.ui.base.components.ColoredEntityView
 import com.example.composedepartment.ui.base.components.ProjectFirstLetterView
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 import com.example.composedepartment.ui.utils.pluralResource
+import com.example.composedepartment.ui.utils.pressedState
 
 @ExperimentalMaterialApi
 @Composable
@@ -158,9 +159,19 @@ private fun Projects(projects: List<Project>, onProjectClick: (String) -> Unit) 
     ) {
         projects.forEach { project ->
             item {
+                val (interactionSource, padding) = pressedState()
                 Card(
-                    modifier = Modifier.size(width = 138.dp, height = 156.dp),
+                    modifier = Modifier
+                        .size(width = 138.dp, height = 156.dp)
+                        .pressedState(
+                            padding = padding,
+                            start = false,
+                            end = false,
+                            top = true,
+                            bottom = true
+                        ),
                     elevation = 10.dp,
+                    interactionSource = interactionSource,
                     onClick = { onProjectClick(project.id) }
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {

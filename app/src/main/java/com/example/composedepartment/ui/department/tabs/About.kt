@@ -23,6 +23,7 @@ import com.example.composedepartment.R
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 import com.example.composedepartment.ui.base.theme.DarkSwitch
 import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
+import com.example.composedepartment.ui.utils.pressedState
 
 @Composable
 internal fun About(
@@ -94,11 +95,14 @@ internal fun About(
                     )
                 )
             }
+            val (interactionSource, padding) = pressedState()
             Button(
                 modifier = Modifier
                     .padding(start = 20.dp, end = 20.dp, bottom = 24.dp)
                     .height(48.dp)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .pressedState(padding = padding, top = true),
+                interactionSource = interactionSource,
                 shape = MaterialTheme.shapes.medium,
                 onClick = { onChatClicked() }
             ) {

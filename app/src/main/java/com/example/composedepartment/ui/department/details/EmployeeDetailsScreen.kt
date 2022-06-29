@@ -32,6 +32,7 @@ import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
 import com.example.composedepartment.ui.department.details.common.DetailsCommonContainer
 import com.example.composedepartment.ui.department.details.common.DetailsCommonTitle
 import com.example.composedepartment.ui.utils.pluralResource
+import com.example.composedepartment.ui.utils.pressedState
 
 @ExperimentalMaterialApi
 @Composable
@@ -196,14 +197,17 @@ private fun AboutProjects(
     onProjectClicked: (String) -> Unit
 ) {
     project?.also {
+        val (interactionSource, padding) = pressedState()
         Card(
             onClick = { onProjectClicked(it.id) },
             modifier = Modifier
                 .padding(top = 26.dp)
                 .fillMaxWidth()
-                .wrapContentHeight(),
+                .wrapContentHeight()
+                .pressedState(padding),
             backgroundColor = MaterialTheme.colors.background,
-            elevation = 0.dp
+            elevation = 0.dp,
+            interactionSource = interactionSource
         ) {
             ConstraintLayout(modifier = Modifier.padding(16.dp)) {
                 val (icon, name, description, arrow) = createRefs()

@@ -19,6 +19,7 @@ import com.example.composedepartment.ui.base.components.ProjectFirstLetterView
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
 import com.example.composedepartment.ui.utils.pluralResource
+import com.example.composedepartment.ui.utils.pressedState
 
 @ExperimentalMaterialApi
 @Composable
@@ -33,11 +34,14 @@ internal fun Projects(
     ) {
         projects.forEach { project ->
             item {
+                val (interactionSource, padding) = pressedState()
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .wrapContentHeight(),
+                        .wrapContentHeight()
+                        .pressedState(padding),
                     elevation = 10.dp,
+                    interactionSource = interactionSource,
                     onClick = { onProjectClick(project.id) }
                 ) {
                     ConstraintLayout(modifier = Modifier.padding(16.dp)) {
