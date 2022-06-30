@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,7 +20,6 @@ import com.example.composedepartment.LocalDarkThemeEnabled
 import com.example.composedepartment.R
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
 import com.example.composedepartment.ui.base.theme.custom.MaterialThemeCustom
-import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.delay
 
 @Composable

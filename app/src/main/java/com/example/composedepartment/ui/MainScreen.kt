@@ -57,7 +57,10 @@ fun MainScreen(
                         )
                     )
                 },
-                onProjectClicked = onProjectClicked
+                onProjectClicked = onProjectClicked,
+                goToAnimations = {
+                    navController.navigate(AppNavigation.AnimationsNavScreen.route)
+                }
             )
         }
         with(AppNavigation.EmployeeDetailsNavScreen) {
@@ -102,6 +105,9 @@ fun MainScreen(
         }
         composableAnimation(AppNavigation.SearchNavScreen.route) {
             SearchScreen(onProjectClick = onProjectClicked)
+        }
+        composableAnimation(AppNavigation.AnimationsNavScreen.route) {
+            AnimationsScreen()
         }
     }
 }

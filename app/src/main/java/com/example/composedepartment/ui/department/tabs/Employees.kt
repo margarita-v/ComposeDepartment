@@ -16,6 +16,7 @@ import androidx.constraintlayout.compose.Dimension
 import com.example.composedepartment.domain.Employee
 import com.example.composedepartment.ui.base.components.ColoredEntityView
 import com.example.composedepartment.ui.base.theme.ComposeDepartmentTheme
+import com.example.composedepartment.ui.utils.pressedState
 
 @ExperimentalMaterialApi
 @Composable
@@ -30,11 +31,14 @@ internal fun Employees(
     ) {
         employees.forEach { employee ->
             item {
+                val (interactionSource, padding) = pressedState()
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .wrapContentHeight(),
+                        .wrapContentHeight()
+                        .pressedState(padding),
                     elevation = 10.dp,
+                    interactionSource = interactionSource,
                     onClick = { onEmployeeClick(employee.id) }
                 ) {
                     ConstraintLayout(modifier = Modifier.padding(16.dp)) {
